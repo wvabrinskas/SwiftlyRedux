@@ -35,6 +35,7 @@
 		912A102825BBD66D005D15FF /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A102625BBD66D005D15FF /* Theme.swift */; };
 		912A102E25BBD6A0005D15FF /* EnvironmentVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A102D25BBD6A0005D15FF /* EnvironmentVars.swift */; };
 		912A103425BBD755005D15FF /* Colorful in Frameworks */ = {isa = PBXBuildFile; productRef = 912A103325BBD755005D15FF /* Colorful */; };
+		914BE64625BC748C0018C9B1 /* LoadingViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914BE64525BC748C0018C9B1 /* LoadingViewModifier.swift */; };
 		A92C076F7F1C0B53820BD6F9 /* Pods_SwiftlyReduxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 746BD59E1D3721DD0CDFA024 /* Pods_SwiftlyReduxTests.framework */; };
 		C9CD1E71FDDE285BE7835FA0 /* Pods_SwiftlyRedux_SwiftlyReduxUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF74650AEBCB961BE2F9F515 /* Pods_SwiftlyRedux_SwiftlyReduxUITests.framework */; };
 /* End PBXBuildFile section */
@@ -93,6 +94,7 @@
 		912A102525BBD66D005D15FF /* Default.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Default.swift; sourceTree = "<group>"; };
 		912A102625BBD66D005D15FF /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		912A102D25BBD6A0005D15FF /* EnvironmentVars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVars.swift; sourceTree = "<group>"; };
+		914BE64525BC748C0018C9B1 /* LoadingViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModifier.swift; sourceTree = "<group>"; };
 		AF74650AEBCB961BE2F9F515 /* Pods_SwiftlyRedux_SwiftlyReduxUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftlyRedux_SwiftlyReduxUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5B281797697FE77DCA8AA4 /* Pods-SwiftlyRedux.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftlyRedux.debug.xcconfig"; path = "Target Support Files/Pods-SwiftlyRedux/Pods-SwiftlyRedux.debug.xcconfig"; sourceTree = "<group>"; };
 		D3446181593BDB104AFD7AD6 /* Pods-SwiftlyRedux.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftlyRedux.release.xcconfig"; path = "Target Support Files/Pods-SwiftlyRedux/Pods-SwiftlyRedux.release.xcconfig"; sourceTree = "<group>"; };
@@ -165,6 +167,7 @@
 		912A0F4825BBCFB8005D15FF /* SwiftlyRedux */ = {
 			isa = PBXGroup;
 			children = (
+				914BE64425BC74650018C9B1 /* Views */,
 				912A102C25BBD686005D15FF /* Environment */,
 				912A101D25BBD644005D15FF /* Themes */,
 				912A0FE925BBD3DD005D15FF /* Managers */,
@@ -271,6 +274,14 @@
 				912A102D25BBD6A0005D15FF /* EnvironmentVars.swift */,
 			);
 			path = Environment;
+			sourceTree = "<group>";
+		};
+		914BE64425BC74650018C9B1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				914BE64525BC748C0018C9B1 /* LoadingViewModifier.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		E395C6EC0E8620F4BDEEEE35 /* Pods */ = {
@@ -534,6 +545,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				914BE64625BC748C0018C9B1 /* LoadingViewModifier.swift in Sources */,
 				912A0F4C25BBCFB8005D15FF /* ContentView.swift in Sources */,
 				912A0FA025BBD1F9005D15FF /* FirestoreManager.swift in Sources */,
 				912A0F9F25BBD1F9005D15FF /* FireStorageManager.swift in Sources */,
