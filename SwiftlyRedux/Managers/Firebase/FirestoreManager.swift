@@ -13,18 +13,28 @@ import FirebaseFirestore
 
 enum Reference: Equatable {
   case users(id: String = "")
-  case homes(id: String = "")
-  case videos(id: String = "")
-  
+  case media(id: String = "")
+  case feed(id: String = "")
+
   func ref(db: Firestore) -> DocumentReference {
     switch self {
     case let .users(id):
       return db.collection("users").document(id)
-    case let .homes(id):
-      return db.collection("homes").document(id)
-    case let .videos(id):
-      return db.collection("videos").document(id)
+    case let .media(id):
+      return db.collection("media").document(id)
+    case let .feed(id):
+      return db.collection("feeds").document(id)
     }
+  }
+}
+
+protocol FirebaseGeneralManager {
+  func initialize()
+}
+
+extension FirebaseGeneralManager {
+  func initialize() {
+    FirebaseApp.initialize()
   }
 }
 

@@ -12,62 +12,31 @@ import SwiftUI
 import Colorful
 
 class Default: Theme {
-  var background: Color {
-    Color.lightCoral
-  }
-
-  var textColor: Color {
-    Color.white
-  }
-  
-  var commentTextColor: Color {
-    Color.black
-  }
-  
-  var secondaryBackground: Color {
-    Color(hex: 0x242424)
-  }
-
-  var gradientBackground: LinearGradient {
-    return LinearGradient(gradient: Gradient(colors: [firstGradientColor, secondaryBackground]),
-                          startPoint: .top,
-                          endPoint: .bottom)
-  }
-  
-  var firstGradientColor: Color {
-    let colorTop = Color(hex: 0x002952)
-    return colorTop
-  }
-  
-  var secondGradientColor: Color {
-    let colorBottom = Color(hex: 0x00509F)
-    return colorBottom
-  }
-  
-  var buttonColor: Color {
-    let colorBottom = Color(hex: 0x002952)
-    return colorBottom
-  }
-  
-  var overlayViewColor: Color {
-    let color = Color(hex: 0xFFF7EF)
-    return color
+  var buttonSize: CGSize {
+    .init(width: 300, height: 50)
   }
   
   var lightButtonColor: Color {
-    let color = Color(hex: 0x002952)
-    return color
+    .dodgerBlue
   }
   
-  var creamBackgroundColor: Color {
-    return Color(hex: 0xFFF7EF)
+  var darkButtonColor: Color {
+    .midnightBlue
   }
   
-  var buttonSize: CGSize {
-    return CGSize(width: 343, height: 50)
+  var background: Color {
+    .darkSlateGray
+  }
+
+  var lightTextColor: Color {
+    .whiteSmoke
   }
   
-  var creamBackgroundColorWithAlpha: Color {
-    return Color(hex: 0xFFF7EF).opacity(0.9)
+  var darkTextColor: Color {
+    .darkSlateGray
+  }
+  
+  var secondaryBackground: Color {
+    .steelBlue
   }
 }

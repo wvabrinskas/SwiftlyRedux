@@ -7,13 +7,13 @@
 
 import Foundation
 
-public protocol Media: Codable, Identifiable {
-  var id: UUID { get }
-  var url: String? { get set }
+public enum MediaType: String, Codable {
+  case video, photo
 }
 
-public extension Media {
-  var id: UUID {
-    return UUID()
-  }
+public struct Media: Codable, Identifiable {
+  public var id: String = UUID().uuidString
+  public var url: String?
+  public var type: MediaType
+  public var uploadDate: Date = Date()
 }

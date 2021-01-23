@@ -13,15 +13,9 @@ import SwiftUI
 public protocol Theme {
   var secondaryBackground: Color { get }
   var background: Color { get }
-  var textColor: Color { get }
-  var commentTextColor: Color { get }
-  var gradientBackground: LinearGradient { get }
-  var firstGradientColor: Color { get }
-  var secondGradientColor: Color { get }
-  var buttonColor: Color { get }
+  var lightTextColor: Color { get }
+  var darkTextColor: Color { get  }
   var lightButtonColor: Color { get }
-  var overlayViewColor: Color { get }
-  var creamBackgroundColor: Color { get }
+  var darkButtonColor: Color { get }
   var buttonSize: CGSize { get }
-  var creamBackgroundColorWithAlpha: Color { get }
 }

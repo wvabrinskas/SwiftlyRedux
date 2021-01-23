@@ -12,11 +12,11 @@ import FirebaseStorage
 
 enum PhotoLocation {
   case profile(id: String)
-  case story(id: String)
+  case feed(id: String)
   
   var name: String {
     switch self {
-    case .story:
+    case .feed:
       return "\(UUID().uuidString)"
     case .profile:
       return "profile-photo"
@@ -25,8 +25,8 @@ enum PhotoLocation {
   
   var location: String {
     switch self {
-    case let .story(id):
-      return "images/stories/\(id)/\(self.name).jpg"
+    case let .feed(id):
+      return "images/feed/\(id)/\(self.name).jpg"
     case let .profile(id):
       return "images/profile/\(id)/\(self.name).jpg"
     }

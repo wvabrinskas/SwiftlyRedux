@@ -15,26 +15,23 @@ import YouTubePlayer
 //MARK: Base
 class StateCoordinator {
   private let auth = AuthSubscription()
-  private let video = VideoSubscription()
+  private let media = MediaSubscription()
   private let session = SessionSubscription()
   
-  //public states
-  public var homeTapped: Int?
-
   enum SubscriptionType {
     case auth
-    case video
+    case media
     case session
   }
-  
+
   public func object<TType>(type: SubscriptionType) -> TType? {
     switch type {
     case .auth:
       return self.auth.obj()
     case .session:
       return self.session.obj()
-    case .video:
-      return self.video.obj()
+    case .media:
+      return self.media.obj()
     }
   }
   
@@ -44,14 +41,16 @@ class StateCoordinator {
       return self.auth.publisher()
     case .session:
       return self.session.publisher()
-    case .video:
-      return self.video.publisher()
+    case .media:
+      return self.media.publisher()
     }
   }
 }
 
 //MARK: Firebase
-extension StateCoordinator: FirestoreManager, FirebaseRealtimeManager {}
+extension StateCoordinator: FirestoreManager, FirebaseRealtimeManager {
+
+}
 
 //MARK: Auth
 extension StateCoordinator {
@@ -83,7 +82,7 @@ extension StateCoordinator {
     switch location {
     case .profile:
       self.auth.module.uploadImage(image: image, complete: complete)
-    case .story:
+    case .feed:
       print("upload to story")
     }
   }
@@ -91,11 +90,11 @@ extension StateCoordinator {
 
 //MARK: Session
 extension StateCoordinator {
-//  func setRealtimeSession(sessionKey: String) {
-//    let user: Profile? = self.object(type: .auth)
-//    self.session.module.setRealtimeSession(sessionKey: sessionKey, user: user)
-//  }
-//  
+  func setRealtimeSession(sessionKey: String) {
+    let user: Profile? = self.object(type: .auth)
+    self.session.module.setRealtimeSession(sessionKey: sessionKey, user: user)
+  }
+  
   func joinRealtimeSession(sessionKey: String,
                            complete: ((_ result: Result<RealtimeSession?, Error>) -> ())? = nil) {
     let user: Profile? = self.object(type: .auth)
@@ -111,9 +110,21 @@ extension StateCoordinator {
   }
 }
 
-//MARK: Video
+//MARK: Media
 extension StateCoordinator {
   func setVideoDelegate(_ view: inout YouTubePlayerView) {
-    view.delegate = self.video.module
+    view.delegate = self.media.module
+  }
+  
+  public func getFeed(feed: Feed) {
+    self.media.module.get(feed: feed)
+  }
+  
+  public func uploadMedia(media: Media, to feed: Feed, complete: FirestoreManager.FirebaseReturnBlock?) {
+    self.media.module.addMedia(media: media, to: feed) { [weak self] (result) in
+      //update user profile
+      //should be done automatically using the the auth state
+      self?.auth.module.refreshUser()
+    }
   }
 }

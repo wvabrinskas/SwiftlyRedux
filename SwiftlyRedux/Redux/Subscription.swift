@@ -34,9 +34,9 @@ struct AuthSubscription: Subscription {
   var module: AuthModule = AuthModule()
 }
 
-struct VideoSubscription: Subscription {
-  typealias TModule = VideoModule
-  var module: VideoModule = VideoModule()
+struct MediaSubscription: Subscription {
+  typealias TModule = MediaModule
+  var module: MediaModule = MediaModule()
 }
 
 struct SessionSubscription: Subscription {
