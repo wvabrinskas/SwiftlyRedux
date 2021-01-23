@@ -25,27 +25,25 @@ struct LoginView: View, LoginValidator {
       ClosableTextField(viewModel: CloseableTextFieldViewModel(buttonTitle: "close",
                                                                placeholder: "email",
                                                                placeholderColor: .systemGray,
-                                                               textSize: 20,
+                                                               textSize: 25,
                                                                textAlignment: .left,
                                                                textColor: theme.lightTextColor.uiColor()),
                         text: self.$email,
                         keyType: .default)
-        .frame(width: 300, height: 30)
+        .frame(width: 400, height: 30)
         .padding([.leading], 20)
       ClosableTextField(viewModel: CloseableTextFieldViewModel(buttonTitle: "close",
                                                                placeholder: "password",
                                                                placeholderColor: .systemGray,
-                                                               textSize: 20,
+                                                               textSize: 25,
                                                                textAlignment: .left,
                                                                textColor: theme.lightTextColor.uiColor(),
                                                                isPassword: true),
                         text: self.$password,
                         keyType: .default)
-        .frame(width: 300, height: 30)
-        .padding([.leading], 20)
+        .frame(width: 400, height: 30)
+        .padding([.leading, .top], 20)
       
-      loginButton()
-        .padding([.top], 16)
       
       Text(errorText ?? "")
         .font(Font.system(size: 12))
@@ -54,10 +52,14 @@ struct LoginView: View, LoginValidator {
         .padding([.top], 20)
         .padding([.leading], 20)
       
+      
+      loginButton()
+        .padding([.top], 25)
+
       Spacer()
       
     }
-    .background(theme.secondaryBackground).edgesIgnoringSafeArea(.all)
+    .background(theme.background).edgesIgnoringSafeArea(.all)
     
   }
   

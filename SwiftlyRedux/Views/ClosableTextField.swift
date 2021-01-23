@@ -30,7 +30,7 @@ struct ClosableTextField: UIViewRepresentable {
     
     textfield.textAlignment = viewModel.textAlignment
     textfield.textColor = viewModel.textColor
-    textfield.font = UIFont.systemFont(ofSize: viewModel.textSize)
+    textfield.font = UIFont.boldSystemFont(ofSize: viewModel.textSize)
     textfield.isSecureTextEntry = viewModel.isPassword 
     
     let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: textfield.frame.size.width, height: 44))

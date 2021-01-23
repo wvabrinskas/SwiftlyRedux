@@ -44,6 +44,11 @@
 		914BE6E625BC8A9C0018C9B1 /* Color+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914BE6E525BC8A9C0018C9B1 /* Color+ext.swift */; };
 		91F1ED0825BC9049005140FA /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED0725BC9049005140FA /* HeaderView.swift */; };
 		91F1ED0D25BC907E005140FA /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED0C25BC907E005140FA /* HeaderViewModel.swift */; };
+		91F1ED1225BC9740005140FA /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED1125BC9740005140FA /* RegisterView.swift */; };
+		91F1ED1725BC9994005140FA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED1625BC9994005140FA /* ProfileView.swift */; };
+		91F1ED1C25BC99FA005140FA /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED1B25BC99FA005140FA /* ProfileViewModel.swift */; };
+		91F1ED2125BC9A56005140FA /* ButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED2025BC9A56005140FA /* ButtonViewModel.swift */; };
+		91F1ED2625BC9A67005140FA /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED2525BC9A67005140FA /* ButtonView.swift */; };
 		A92C076F7F1C0B53820BD6F9 /* Pods_SwiftlyReduxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 746BD59E1D3721DD0CDFA024 /* Pods_SwiftlyReduxTests.framework */; };
 		C9CD1E71FDDE285BE7835FA0 /* Pods_SwiftlyRedux_SwiftlyReduxUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF74650AEBCB961BE2F9F515 /* Pods_SwiftlyRedux_SwiftlyReduxUITests.framework */; };
 /* End PBXBuildFile section */
@@ -111,6 +116,11 @@
 		914BE6E525BC8A9C0018C9B1 /* Color+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ext.swift"; sourceTree = "<group>"; };
 		91F1ED0725BC9049005140FA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		91F1ED0C25BC907E005140FA /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
+		91F1ED1125BC9740005140FA /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
+		91F1ED1625BC9994005140FA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		91F1ED1B25BC99FA005140FA /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		91F1ED2025BC9A56005140FA /* ButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewModel.swift; sourceTree = "<group>"; };
+		91F1ED2525BC9A67005140FA /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		AF74650AEBCB961BE2F9F515 /* Pods_SwiftlyRedux_SwiftlyReduxUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftlyRedux_SwiftlyReduxUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5B281797697FE77DCA8AA4 /* Pods-SwiftlyRedux.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftlyRedux.debug.xcconfig"; path = "Target Support Files/Pods-SwiftlyRedux/Pods-SwiftlyRedux.debug.xcconfig"; sourceTree = "<group>"; };
 		D3446181593BDB104AFD7AD6 /* Pods-SwiftlyRedux.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftlyRedux.release.xcconfig"; path = "Target Support Files/Pods-SwiftlyRedux/Pods-SwiftlyRedux.release.xcconfig"; sourceTree = "<group>"; };
@@ -303,6 +313,9 @@
 				914BE6CC25BC88C20018C9B1 /* ImagePicker.swift */,
 				914BE6D125BC896A0018C9B1 /* LoginView.swift */,
 				91F1ED0725BC9049005140FA /* HeaderView.swift */,
+				91F1ED1125BC9740005140FA /* RegisterView.swift */,
+				91F1ED1625BC9994005140FA /* ProfileView.swift */,
+				91F1ED2525BC9A67005140FA /* ButtonView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -312,6 +325,8 @@
 			children = (
 				914BE6DA25BC89C60018C9B1 /* CloseableTextFieldViewModel.swift */,
 				91F1ED0C25BC907E005140FA /* HeaderViewModel.swift */,
+				91F1ED1B25BC99FA005140FA /* ProfileViewModel.swift */,
+				91F1ED2025BC9A56005140FA /* ButtonViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -593,19 +608,24 @@
 				912A0F9F25BBD1F9005D15FF /* FireStorageManager.swift in Sources */,
 				912A102E25BBD6A0005D15FF /* EnvironmentVars.swift in Sources */,
 				914BE6E025BC89CF0018C9B1 /* ClosableTextField.swift in Sources */,
+				91F1ED1225BC9740005140FA /* RegisterView.swift in Sources */,
 				912A0FE325BBD3B0005D15FF /* Profile.swift in Sources */,
 				914BE6CD25BC88C20018C9B1 /* ImagePicker.swift in Sources */,
 				912A0F4A25BBCFB8005D15FF /* SwiftlyReduxApp.swift in Sources */,
+				91F1ED1C25BC99FA005140FA /* ProfileViewModel.swift in Sources */,
 				912A0FB525BBD21F005D15FF /* StateCoordinator.swift in Sources */,
 				912A0FBB25BBD21F005D15FF /* Module.swift in Sources */,
 				912A0FBD25BBD21F005D15FF /* AuthModule.swift in Sources */,
 				912A102825BBD66D005D15FF /* Theme.swift in Sources */,
+				91F1ED2625BC9A67005140FA /* ButtonView.swift in Sources */,
 				912A0FB825BBD21F005D15FF /* Subscription.swift in Sources */,
 				912A0FE425BBD3B0005D15FF /* RealtimeSession.swift in Sources */,
 				912A102725BBD66D005D15FF /* Default.swift in Sources */,
 				914BE6DB25BC89C60018C9B1 /* CloseableTextFieldViewModel.swift in Sources */,
 				91F1ED0825BC9049005140FA /* HeaderView.swift in Sources */,
 				914BE6E625BC8A9C0018C9B1 /* Color+ext.swift in Sources */,
+				91F1ED1725BC9994005140FA /* ProfileView.swift in Sources */,
+				91F1ED2125BC9A56005140FA /* ButtonViewModel.swift in Sources */,
 				912A0FBE25BBD21F005D15FF /* SessionModule.swift in Sources */,
 				912A0FB925BBD21F005D15FF /* MediaModule.swift in Sources */,
 				912A0FB725BBD21F005D15FF /* DataCoordinator.swift in Sources */,
