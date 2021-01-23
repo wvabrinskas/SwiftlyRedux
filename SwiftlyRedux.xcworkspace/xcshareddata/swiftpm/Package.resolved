@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Colorful",
+        "repositoryURL": "git@github.com:chackle/Colorful.git",
+        "state": {
+          "branch": null,
+          "revision": "660a531e68e02d67878f11d1e9b119a3087f5eee",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SDWebImage",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImage.git",
+        "state": {
+          "branch": null,
+          "revision": "564d238f8814c4a82502336fd80b28a9d321ff47",
+          "version": "5.10.2"
+        }
+      },
+      {
+        "package": "SDWebImageSwiftUI",
+        "repositoryURL": "https://github.com/SDWebImage/SDWebImageSwiftUI.git",
+        "state": {
+          "branch": null,
+          "revision": "4c7f169e39bc35d6b80d42b8eb8301bee9cd0907",
+          "version": "1.5.0"
+        }
+      },
+      {
+        "package": "SimpleApiClient",
+        "repositoryURL": "git@github.com:wvabrinskas/SimpleApiClient.git",
+        "state": {
+          "branch": null,
+          "revision": "e492f3a586c26a6e958fa746b8da62a71a7da9f2",
+          "version": "1.0.11"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

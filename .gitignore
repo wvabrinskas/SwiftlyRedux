@@ -1,0 +1,8 @@
+Pods/*
+Pods/Pods.xcodeproj/xcuserdata/*
+*.xcodeproj/project.xcworkspace/xcuserdata/*
+*.xcodeproj/xcuserdata/*
+*.xcworkspace/xcuserdata/*
+*.xcodeproj/project.xcworkspace/xcuserdata/
+.swiftpm/xcode/package.xcworkspace/xcuserdata/*
+.DS_Store
