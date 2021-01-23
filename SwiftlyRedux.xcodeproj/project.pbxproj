@@ -36,6 +36,8 @@
 		912A102E25BBD6A0005D15FF /* EnvironmentVars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A102D25BBD6A0005D15FF /* EnvironmentVars.swift */; };
 		912A103425BBD755005D15FF /* Colorful in Frameworks */ = {isa = PBXBuildFile; productRef = 912A103325BBD755005D15FF /* Colorful */; };
 		914BE64625BC748C0018C9B1 /* LoadingViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914BE64525BC748C0018C9B1 /* LoadingViewModifier.swift */; };
+		914BE69325BC77510018C9B1 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914BE69225BC77510018C9B1 /* Media.swift */; };
+		914BE6B925BC78530018C9B1 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914BE6B825BC78530018C9B1 /* Photo.swift */; };
 		A92C076F7F1C0B53820BD6F9 /* Pods_SwiftlyReduxTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 746BD59E1D3721DD0CDFA024 /* Pods_SwiftlyReduxTests.framework */; };
 		C9CD1E71FDDE285BE7835FA0 /* Pods_SwiftlyRedux_SwiftlyReduxUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF74650AEBCB961BE2F9F515 /* Pods_SwiftlyRedux_SwiftlyReduxUITests.framework */; };
 /* End PBXBuildFile section */
@@ -95,6 +97,8 @@
 		912A102625BBD66D005D15FF /* Theme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		912A102D25BBD6A0005D15FF /* EnvironmentVars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVars.swift; sourceTree = "<group>"; };
 		914BE64525BC748C0018C9B1 /* LoadingViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewModifier.swift; sourceTree = "<group>"; };
+		914BE69225BC77510018C9B1 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		914BE6B825BC78530018C9B1 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		AF74650AEBCB961BE2F9F515 /* Pods_SwiftlyRedux_SwiftlyReduxUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftlyRedux_SwiftlyReduxUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5B281797697FE77DCA8AA4 /* Pods-SwiftlyRedux.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftlyRedux.debug.xcconfig"; path = "Target Support Files/Pods-SwiftlyRedux/Pods-SwiftlyRedux.debug.xcconfig"; sourceTree = "<group>"; };
 		D3446181593BDB104AFD7AD6 /* Pods-SwiftlyRedux.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftlyRedux.release.xcconfig"; path = "Target Support Files/Pods-SwiftlyRedux/Pods-SwiftlyRedux.release.xcconfig"; sourceTree = "<group>"; };
@@ -173,7 +177,6 @@
 				912A0FE925BBD3DD005D15FF /* Managers */,
 				912A0FDF25BBD3A1005D15FF /* Models */,
 				912A0FA425BBD203005D15FF /* Redux */,
-				912A0F7725BBCFD9005D15FF /* Firebase */,
 				912A0F4925BBCFB8005D15FF /* SwiftlyReduxApp.swift */,
 				912A0F4B25BBCFB8005D15FF /* ContentView.swift */,
 				912A0F4D25BBCFBA005D15FF /* Assets.xcassets */,
@@ -247,6 +250,8 @@
 				912A0FE025BBD3AF005D15FF /* Profile.swift */,
 				912A0FE125BBD3B0005D15FF /* RealtimeSession.swift */,
 				912A0FE225BBD3B0005D15FF /* Video.swift */,
+				914BE69225BC77510018C9B1 /* Media.swift */,
+				914BE6B825BC78530018C9B1 /* Photo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 		912A0FE925BBD3DD005D15FF /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				912A0F7725BBCFD9005D15FF /* Firebase */,
 				912A0FEA25BBD3EA005D15FF /* LoginValidator.swift */,
 			);
 			path = Managers;
@@ -547,6 +553,7 @@
 			files = (
 				914BE64625BC748C0018C9B1 /* LoadingViewModifier.swift in Sources */,
 				912A0F4C25BBCFB8005D15FF /* ContentView.swift in Sources */,
+				914BE69325BC77510018C9B1 /* Media.swift in Sources */,
 				912A0FA025BBD1F9005D15FF /* FirestoreManager.swift in Sources */,
 				912A0F9F25BBD1F9005D15FF /* FireStorageManager.swift in Sources */,
 				912A102E25BBD6A0005D15FF /* EnvironmentVars.swift in Sources */,
@@ -562,6 +569,7 @@
 				912A102725BBD66D005D15FF /* Default.swift in Sources */,
 				912A0FBE25BBD21F005D15FF /* SessionModule.swift in Sources */,
 				912A0FB925BBD21F005D15FF /* VideoModule.swift in Sources */,
+				914BE6B925BC78530018C9B1 /* Photo.swift in Sources */,
 				912A0FB725BBD21F005D15FF /* DataCoordinator.swift in Sources */,
 				912A0FEB25BBD3EA005D15FF /* LoginValidator.swift in Sources */,
 				912A0F9E25BBD1F9005D15FF /* FirebaseRealtimeManager.swift in Sources */,

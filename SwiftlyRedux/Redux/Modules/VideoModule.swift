@@ -21,22 +21,17 @@ class VideoModule: Module {
     }
   }
   
-  public static func getId(from videoUrl: String, type: VideoType = .youtube) -> String? {
-    switch type {
-    case .youtube:
-        //covers both types of URLs for YT videos
-      if let query = URLComponents(string: videoUrl)?.queryItems?.first(where: { $0.name == "v" })?.value {
-        return query
-      }
-      
-      if let path = URLComponents(string: videoUrl)?.path.dropFirst() {
-        return String(path)
-      }
-      
-      return nil
-    case .vimeo:
-      return nil
+  public static func getId(from videoUrl: String) -> String? {
+    //covers both types of URLs for YT videos
+    if let query = URLComponents(string: videoUrl)?.queryItems?.first(where: { $0.name == "v" })?.value {
+      return query
     }
+    
+    if let path = URLComponents(string: videoUrl)?.path.dropFirst() {
+      return String(path)
+    }
+    
+    return nil
   }
 }
 

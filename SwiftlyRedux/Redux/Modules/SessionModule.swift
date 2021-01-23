@@ -5,6 +5,7 @@
 
 import Foundation
 
+//NOT SURE WHAT I WANT TO DO WITH THIS YET
 class SessionModule: Module, FirebaseRealtimeManager {
   
   typealias ObjectType = RealtimeSession
@@ -42,7 +43,7 @@ class SessionModule: Module, FirebaseRealtimeManager {
         
     let members = [ user.userId ]
     
-    let rtHome = RealtimeSession(id: sessionKey, members: members, homes: user.homes)
+    let rtHome = RealtimeSession(id: sessionKey, members: members)
     
     self.setRealtime(ref: .sessions(id: sessionKey), value: rtHome)
   }

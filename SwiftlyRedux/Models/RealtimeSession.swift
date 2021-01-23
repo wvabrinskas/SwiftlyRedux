@@ -11,15 +11,11 @@ import Foundation
 public struct RealtimeSession: Codable {
   var id: String
   var members: [String]
-  var homes: [String]
-  var homeIndex: Int
   var playVideo: Bool
   
   enum CodingKeys: String, CodingKey {
     case id
     case members
-    case homes
-    case homeIndex
     case playVideo
   }
   
@@ -28,8 +24,6 @@ public struct RealtimeSession: Codable {
     
     id = try values.decode(String.self, forKey: .id)
     members = try values.decodeIfPresent([String].self, forKey: .members) ?? []
-    homeIndex = try values.decodeIfPresent(Int.self, forKey: .homeIndex) ?? 0
-    homes = try values.decodeIfPresent([String].self, forKey: .homes) ?? []
     playVideo = try values.decodeIfPresent(Bool.self, forKey: .playVideo) ?? false
   }
   
@@ -40,8 +34,6 @@ public struct RealtimeSession: Codable {
               playVideo: Bool = false) {
     self.id = id
     self.members = members
-    self.homeIndex = homeIndex
-    self.homes = homes
     self.playVideo = playVideo
   }
 }

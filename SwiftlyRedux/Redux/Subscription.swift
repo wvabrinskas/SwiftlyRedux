@@ -1,6 +1,5 @@
 //
 //  Subscription.swift
-//  Homes
 //
 //  Created by William Vabrinskas on 9/25/20.
 //  Copyright © 2020 William Vabrinskas. All rights reserved.
@@ -39,7 +38,6 @@ struct VideoSubscription: Subscription {
   typealias TModule = VideoModule
   var module: VideoModule = VideoModule()
 }
-
 
 struct SessionSubscription: Subscription {
   typealias TModule = SessionModule

@@ -91,11 +91,11 @@ extension StateCoordinator {
 
 //MARK: Session
 extension StateCoordinator {
-  func setRealtimeSession(sessionKey: String) {
-    let user: Profile? = self.object(type: .auth)
-    self.session.module.setRealtimeSession(sessionKey: sessionKey, user: user)
-  }
-  
+//  func setRealtimeSession(sessionKey: String) {
+//    let user: Profile? = self.object(type: .auth)
+//    self.session.module.setRealtimeSession(sessionKey: sessionKey, user: user)
+//  }
+//  
   func joinRealtimeSession(sessionKey: String,
                            complete: ((_ result: Result<RealtimeSession?, Error>) -> ())? = nil) {
     let user: Profile? = self.object(type: .auth)
