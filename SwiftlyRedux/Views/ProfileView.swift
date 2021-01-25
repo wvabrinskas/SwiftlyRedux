@@ -92,7 +92,7 @@ struct ProfileView: View {
     .sheet(item: self.$activeSheet) { sheet in
       switch sheet {
       case .imagePicker:
-        ImagePicker(image: self.$inputImage) { image in
+        ImagePicker(image: self.$inputImage, pickerType: .photoLibrary) { image in
           self.uploadPhoto(image)
         }
       }

@@ -15,6 +15,9 @@
 		9125120E25BF750A001E071A /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125120D25BF750A001E071A /* MediaCell.swift */; };
 		9125121325BF7768001E071A /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125121225BF7768001E071A /* PlayerView.swift */; };
 		9125121825BF7782001E071A /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125121725BF7782001E071A /* PlayerViewModel.swift */; };
+		9125122025BF868B001E071A /* MediaUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125121F25BF868B001E071A /* MediaUploadView.swift */; };
+		9125122525BF8AA1001E071A /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125122425BF8AA1001E071A /* TextView.swift */; };
+		9125122A25BF8ABC001E071A /* TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125122925BF8ABC001E071A /* TextViewModel.swift */; };
 		912A0F4A25BBCFB8005D15FF /* SwiftlyReduxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A0F4925BBCFB8005D15FF /* SwiftlyReduxApp.swift */; };
 		912A0F4C25BBCFB8005D15FF /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A0F4B25BBCFB8005D15FF /* HomePageView.swift */; };
 		912A0F4E25BBCFBA005D15FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 912A0F4D25BBCFBA005D15FF /* Assets.xcassets */; };
@@ -91,6 +94,9 @@
 		9125120D25BF750A001E071A /* MediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
 		9125121225BF7768001E071A /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		9125121725BF7782001E071A /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
+		9125121F25BF868B001E071A /* MediaUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaUploadView.swift; sourceTree = "<group>"; };
+		9125122425BF8AA1001E071A /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
+		9125122925BF8ABC001E071A /* TextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewModel.swift; sourceTree = "<group>"; };
 		912A0F4625BBCFB8005D15FF /* SwiftlyRedux.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftlyRedux.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		912A0F4925BBCFB8005D15FF /* SwiftlyReduxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftlyReduxApp.swift; sourceTree = "<group>"; };
 		912A0F4B25BBCFB8005D15FF /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -334,6 +340,8 @@
 				912511FE25BF73D9001E071A /* FeedView.swift */,
 				9125120D25BF750A001E071A /* MediaCell.swift */,
 				9125121225BF7768001E071A /* PlayerView.swift */,
+				9125121F25BF868B001E071A /* MediaUploadView.swift */,
+				9125122425BF8AA1001E071A /* TextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -348,6 +356,7 @@
 				9125120325BF746F001E071A /* FeedViewModel.swift */,
 				9125120825BF74E0001E071A /* MediaCellViewModel.swift */,
 				9125121725BF7782001E071A /* PlayerViewModel.swift */,
+				9125122925BF8ABC001E071A /* TextViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -624,6 +633,7 @@
 				9125120925BF74E0001E071A /* MediaCellViewModel.swift in Sources */,
 				9125121825BF7782001E071A /* PlayerViewModel.swift in Sources */,
 				912511FF25BF73D9001E071A /* FeedView.swift in Sources */,
+				9125122525BF8AA1001E071A /* TextView.swift in Sources */,
 				914BE64625BC748C0018C9B1 /* LoadingViewModifier.swift in Sources */,
 				912A0F4C25BBCFB8005D15FF /* HomePageView.swift in Sources */,
 				9125120E25BF750A001E071A /* MediaCell.swift in Sources */,
@@ -645,6 +655,7 @@
 				91F1ED2625BC9A67005140FA /* ButtonView.swift in Sources */,
 				912A0FB825BBD21F005D15FF /* Subscription.swift in Sources */,
 				912A0FE425BBD3B0005D15FF /* RealtimeSession.swift in Sources */,
+				9125122A25BF8ABC001E071A /* TextViewModel.swift in Sources */,
 				912A102725BBD66D005D15FF /* Default.swift in Sources */,
 				912511FA25BF722D001E071A /* LoadingView.swift in Sources */,
 				914BE6DB25BC89C60018C9B1 /* CloseableTextFieldViewModel.swift in Sources */,
@@ -653,6 +664,7 @@
 				9125120425BF746F001E071A /* FeedViewModel.swift in Sources */,
 				91F1ED1725BC9994005140FA /* ProfileView.swift in Sources */,
 				91F1ED2125BC9A56005140FA /* ButtonViewModel.swift in Sources */,
+				9125122025BF868B001E071A /* MediaUploadView.swift in Sources */,
 				912A0FBE25BBD21F005D15FF /* SessionModule.swift in Sources */,
 				912A0FB925BBD21F005D15FF /* MediaModule.swift in Sources */,
 				9125121325BF7768001E071A /* PlayerView.swift in Sources */,

@@ -13,7 +13,7 @@ struct HomePageView: View {
   @Environment(\.theme) var theme
   
   enum ActionSheet: Identifiable {
-    case login, register, profile
+    case login, register, profile, upload
     
     var id: Int { hashValue }
   }
@@ -44,6 +44,15 @@ struct HomePageView: View {
       .padding(.trailing, 20)
       
       
+      if let feed = self.profile?.feed {
+        FeedView(viewModel: FeedViewModel(feed: feed))
+          .background(theme.secondaryBackground)
+      }
+
+      if self.profile != nil {
+        uploadButtonStack()
+          .padding(.bottom, 40)
+      }
 
       if self.profile == nil {
         Spacer()
@@ -73,11 +82,28 @@ struct HomePageView: View {
         RegisterView()
       case .profile:
         profileView()
+      case .upload:
+        MediaUploadView()
       }
     }
     .animation(self.bodyAnimation)
     .background(theme.secondaryBackground).edgesIgnoringSafeArea(.all)
 
+  }
+  
+  private func uploadButtonStack() -> AnyView {
+    AnyView(
+      HStack {
+        Button(action: { self.activeSheet = .upload } ) {
+        Image(systemName: "plus.circle")
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .foregroundColor(theme.lightTextColor)
+          .frame(width: 30, height: 30)
+      }
+      .background(Color.clear)
+
+    })
   }
   
   private func buttonStack() -> some View {

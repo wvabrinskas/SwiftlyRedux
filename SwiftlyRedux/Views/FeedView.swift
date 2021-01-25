@@ -16,13 +16,16 @@ struct FeedView: View {
   var viewModel: FeedViewModel
   
   var body: some View {
-    List {
+    UITableView.appearance().backgroundColor = .clear
+
+    return List {
       ForEach(media, id: \.id) { mediaObj in
         MediaCell(viewModel: MediaCellViewModel(media: mediaObj))
       }
       .frame(maxWidth: .infinity, alignment: .center)
       .listRowBackground(theme.secondaryBackground)
     }
+    .background(theme.secondaryBackground).edgesIgnoringSafeArea(.all)
     .onAppear {
       self.state.getFeed(feed: viewModel.feed)
     }
@@ -31,7 +34,6 @@ struct FeedView: View {
         self.media = media
       }
     })
-    .background(theme.secondaryBackground).edgesIgnoringSafeArea(.all)
   }
 }
 
