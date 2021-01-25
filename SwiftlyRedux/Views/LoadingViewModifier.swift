@@ -47,27 +47,30 @@ struct LoadingViewModifier: ViewModifier {
   var textColor: Color = .white
 
   @Binding var showing: Bool
+  @State var opacity: Double = 0
 
   func body(content: Content) -> some View {
     content
       .overlay(self.loadingView())
   }
 
-  private func loadingView() -> AnyView {
-    if self.showing {
-      return AnyView(VStack {
-        Text(title)
-          .font(Font.system(size: 20))
-          .foregroundColor(textColor)
-          .fontWeight(.bold)
-          .padding(10)
-          .isHidden(title.isEmpty)
-        LoadingIndicator(isAnimating: self.$showing, style: .large)
-          .padding([.bottom], 10)
-      }.background(background)
-        .cornerRadius(20))
+  private func loadingView() -> some View {
+    
+    VStack {
+      Text(title)
+        .font(Font.system(size: 20))
+        .foregroundColor(textColor)
+        .fontWeight(.bold)
+        .padding(10)
+        .isHidden(title.isEmpty)
+      LoadingIndicator(isAnimating: self.$showing, style: .large)
+        .padding([.bottom], 10)
     }
-    return AnyView(Color.clear)
+    .background(background)
+    .cornerRadius(20)
+    .isHidden(!self.showing)
+    .transition(.scale)
+    .animation(.spring())
   }
 }
 

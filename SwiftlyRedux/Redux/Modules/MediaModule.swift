@@ -88,7 +88,7 @@ class MediaModule: Module, FirestoreManager, FireStorageManager {
 //MARK: Video playback state
 extension MediaModule: YouTubePlayerDelegate {
   
-  public static func getVideoId(from videoUrl: String) -> String? {
+  public func getVideoId(from videoUrl: String) -> String? {
     //covers both types of URLs for YT videos
     if let query = URLComponents(string: videoUrl)?.queryItems?.first(where: { $0.name == "v" })?.value {
       return query

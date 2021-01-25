@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct ContentView: View {
   @Environment(\.state) var state
@@ -20,12 +21,18 @@ struct ContentView: View {
   @State private var activeSheet: ActionSheet?
   @State private var showLogin: Bool = false
   @State private var profile: Profile?
+  @State private var loading: Bool = true
+  
+  private var bodyAnimation: Animation {
+    Animation.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.1)
+  }
   
   var body: some View {
 
     VStack(spacing: 20) {
       HStack {
         self.profileButton()
+          .animation(self.bodyAnimation)
       }
       .frame(maxWidth: .infinity, maxHeight: 40, alignment: .trailing)
       .padding(.trailing, 20)
@@ -43,37 +50,15 @@ struct ContentView: View {
       Spacer()
       
       if self.profile == nil {
-        Button(action: { self.login() } ) {
-          Text("login")
-            .fontWeight(.bold)
-            .font(Font.system(size: 20))
-            .foregroundColor(theme.lightTextColor)
-            .frame(width: theme.buttonSize.width, height: theme.buttonSize.height)
-        }
-        .frame(width: theme.buttonSize.width, height: theme.buttonSize.height)
-        .background(theme.lightButtonColor)
-        .cornerRadius(150)
-        .shadow(radius: 5)
-        .padding(.top, 30)
-        
-        Button(action: { self.register() } ) {
-          Text("register")
-            .font(Font.system(size: 20))
-            .foregroundColor(theme.darkTextColor)
-            .fontWeight(.bold)
-            .frame(width: theme.buttonSize.width, height: theme.buttonSize.height)
-        }
-        .frame(width: theme.buttonSize.width, height: theme.buttonSize.height)
-        .background(theme.darkButtonColor)
-        .cornerRadius(150)
-        .shadow(radius: 5)
-        .padding(.bottom, 50)
+        self.buttonStack()
+          .transition(.scale)
       }
 
     }
     .padding(.top, 100)
     .onReceive(state.subscribe(type: .auth), perform: { (user: AuthModule.ObjectType?) in
       self.profile = user
+      self.loading = false
     })
     .sheet(item: self.$activeSheet) { sheet in
       switch sheet {
@@ -85,8 +70,39 @@ struct ContentView: View {
         profileView()
       }
     }
+    .animation(self.bodyAnimation)
     .background(theme.secondaryBackground).edgesIgnoringSafeArea(.all)
 
+  }
+  
+  private func buttonStack() -> some View {
+    VStack(spacing: 10) {
+      Button(action: { self.login() } ) {
+        Text("login")
+          .fontWeight(.bold)
+          .font(Font.system(size: 20))
+          .foregroundColor(theme.lightTextColor)
+          .frame(width: theme.buttonSize.width, height: theme.buttonSize.height)
+      }
+      .frame(width: theme.buttonSize.width, height: theme.buttonSize.height)
+      .background(theme.lightButtonColor)
+      .cornerRadius(150)
+      .shadow(radius: 5)
+      .padding(.top, 30)
+      
+      Button(action: { self.register() } ) {
+        Text("register")
+          .font(Font.system(size: 20))
+          .foregroundColor(theme.darkTextColor)
+          .fontWeight(.bold)
+          .frame(width: theme.buttonSize.width, height: theme.buttonSize.height)
+      }
+      .frame(width: theme.buttonSize.width, height: theme.buttonSize.height)
+      .background(theme.darkButtonColor)
+      .cornerRadius(150)
+      .shadow(radius: 5)
+      .padding(.bottom, 50)
+    }
   }
   
   private func profileView() -> AnyView {
@@ -109,17 +125,37 @@ struct ContentView: View {
   }
   
   private func profileButton() -> AnyView {
-    guard self.profile != nil else {
+    guard let profile = self.profile else {
       return AnyView(EmptyView())
     }
     
-    let viewModel = ButtonViewModel(buttonImage: "person",
-                                    size: CGSize(width: 40, height: 40),
-                                    backgroundColor: Color.ghostWhite,
-                                    imageSize: 20)
-    return AnyView(ButtonView(viewModel: viewModel) {
-      self.profilePressed()
-    })
+    if let profileUrl = profile.profileImage {
+      
+      return AnyView(Button(action: {
+        self.profilePressed()
+      }, label: {
+        WebImage(url: URL(string: profileUrl))
+          .resizable()
+          .placeholder {
+            Color.lightSlateGray
+          }
+          .indicator(.activity)
+          .transition(.fade(duration: 0.5))
+      })
+      .frame(width: 40, height: 40)
+      .clipShape(Circle())
+      )
+      
+    } else {
+      let viewModel = ButtonViewModel(buttonImage: "person",
+                                      size: CGSize(width: 40, height: 40),
+                                      backgroundColor: Color.ghostWhite,
+                                      imageSize: 20)
+      return AnyView(ButtonView(viewModel: viewModel) {
+        self.profilePressed()
+      })
+    }
+ 
   }
   
 }

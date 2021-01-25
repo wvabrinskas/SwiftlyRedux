@@ -127,4 +127,8 @@ extension StateCoordinator {
       self?.auth.module.refreshUser()
     }
   }
+  
+  public func getVideoId(for url: String) -> String? {
+    return self.media.module.getVideoId(from: url)
+  }
 }

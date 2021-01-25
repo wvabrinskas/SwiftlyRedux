@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		40CCAE0EF3655BA54C14F46E /* Pods_SwiftlyRedux.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 748B5358F30A202482597A9A /* Pods_SwiftlyRedux.framework */; };
+		912511FA25BF722D001E071A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912511F925BF722D001E071A /* LoadingView.swift */; };
+		912511FF25BF73D9001E071A /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912511FE25BF73D9001E071A /* FeedView.swift */; };
+		9125120425BF746F001E071A /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125120325BF746F001E071A /* FeedViewModel.swift */; };
+		9125120925BF74E0001E071A /* MediaCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125120825BF74E0001E071A /* MediaCellViewModel.swift */; };
+		9125120E25BF750A001E071A /* MediaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125120D25BF750A001E071A /* MediaCell.swift */; };
+		9125121325BF7768001E071A /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125121225BF7768001E071A /* PlayerView.swift */; };
+		9125121825BF7782001E071A /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125121725BF7782001E071A /* PlayerViewModel.swift */; };
 		912A0F4A25BBCFB8005D15FF /* SwiftlyReduxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A0F4925BBCFB8005D15FF /* SwiftlyReduxApp.swift */; };
 		912A0F4C25BBCFB8005D15FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A0F4B25BBCFB8005D15FF /* ContentView.swift */; };
 		912A0F4E25BBCFBA005D15FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 912A0F4D25BBCFBA005D15FF /* Assets.xcassets */; };
@@ -77,6 +84,13 @@
 		6E224D23D2F077F597FFD4AE /* Pods-SwiftlyReduxTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftlyReduxTests.debug.xcconfig"; path = "Target Support Files/Pods-SwiftlyReduxTests/Pods-SwiftlyReduxTests.debug.xcconfig"; sourceTree = "<group>"; };
 		746BD59E1D3721DD0CDFA024 /* Pods_SwiftlyReduxTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftlyReduxTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		748B5358F30A202482597A9A /* Pods_SwiftlyRedux.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftlyRedux.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		912511F925BF722D001E071A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		912511FE25BF73D9001E071A /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		9125120325BF746F001E071A /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
+		9125120825BF74E0001E071A /* MediaCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCellViewModel.swift; sourceTree = "<group>"; };
+		9125120D25BF750A001E071A /* MediaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCell.swift; sourceTree = "<group>"; };
+		9125121225BF7768001E071A /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		9125121725BF7782001E071A /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		912A0F4625BBCFB8005D15FF /* SwiftlyRedux.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftlyRedux.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		912A0F4925BBCFB8005D15FF /* SwiftlyReduxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftlyReduxApp.swift; sourceTree = "<group>"; };
 		912A0F4B25BBCFB8005D15FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -316,6 +330,10 @@
 				91F1ED1125BC9740005140FA /* RegisterView.swift */,
 				91F1ED1625BC9994005140FA /* ProfileView.swift */,
 				91F1ED2525BC9A67005140FA /* ButtonView.swift */,
+				912511F925BF722D001E071A /* LoadingView.swift */,
+				912511FE25BF73D9001E071A /* FeedView.swift */,
+				9125120D25BF750A001E071A /* MediaCell.swift */,
+				9125121225BF7768001E071A /* PlayerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -327,6 +345,9 @@
 				91F1ED0C25BC907E005140FA /* HeaderViewModel.swift */,
 				91F1ED1B25BC99FA005140FA /* ProfileViewModel.swift */,
 				91F1ED2025BC9A56005140FA /* ButtonViewModel.swift */,
+				9125120325BF746F001E071A /* FeedViewModel.swift */,
+				9125120825BF74E0001E071A /* MediaCellViewModel.swift */,
+				9125121725BF7782001E071A /* PlayerViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -600,8 +621,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9125120925BF74E0001E071A /* MediaCellViewModel.swift in Sources */,
+				9125121825BF7782001E071A /* PlayerViewModel.swift in Sources */,
+				912511FF25BF73D9001E071A /* FeedView.swift in Sources */,
 				914BE64625BC748C0018C9B1 /* LoadingViewModifier.swift in Sources */,
 				912A0F4C25BBCFB8005D15FF /* ContentView.swift in Sources */,
+				9125120E25BF750A001E071A /* MediaCell.swift in Sources */,
 				914BE69325BC77510018C9B1 /* Media.swift in Sources */,
 				912A0FA025BBD1F9005D15FF /* FirestoreManager.swift in Sources */,
 				914BE6D225BC896A0018C9B1 /* LoginView.swift in Sources */,
@@ -621,13 +646,16 @@
 				912A0FB825BBD21F005D15FF /* Subscription.swift in Sources */,
 				912A0FE425BBD3B0005D15FF /* RealtimeSession.swift in Sources */,
 				912A102725BBD66D005D15FF /* Default.swift in Sources */,
+				912511FA25BF722D001E071A /* LoadingView.swift in Sources */,
 				914BE6DB25BC89C60018C9B1 /* CloseableTextFieldViewModel.swift in Sources */,
 				91F1ED0825BC9049005140FA /* HeaderView.swift in Sources */,
 				914BE6E625BC8A9C0018C9B1 /* Color+ext.swift in Sources */,
+				9125120425BF746F001E071A /* FeedViewModel.swift in Sources */,
 				91F1ED1725BC9994005140FA /* ProfileView.swift in Sources */,
 				91F1ED2125BC9A56005140FA /* ButtonViewModel.swift in Sources */,
 				912A0FBE25BBD21F005D15FF /* SessionModule.swift in Sources */,
 				912A0FB925BBD21F005D15FF /* MediaModule.swift in Sources */,
+				9125121325BF7768001E071A /* PlayerView.swift in Sources */,
 				912A0FB725BBD21F005D15FF /* DataCoordinator.swift in Sources */,
 				914BE6C125BC7CAB0018C9B1 /* Feed.swift in Sources */,
 				91F1ED0D25BC907E005140FA /* HeaderViewModel.swift in Sources */,
