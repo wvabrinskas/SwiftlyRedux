@@ -5,13 +5,16 @@ struct ProfileViewModel {
   var firstname: String = ""
   var lastname: String = ""
   var uid: String
-  var homes: [String] = []
+  var username: String
+  var mediaCount: Int
   
   init(profile: Profile) {
     self.firstname = profile.firstName
     self.lastname = profile.lastName
     self.uid = profile.userId
     self.image = profile.profileImage
+    self.username = profile.username
+    self.mediaCount = profile.feed.media.count
   }
 }
 

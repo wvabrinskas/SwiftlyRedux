@@ -18,7 +18,8 @@ struct RegisterView: View, LoginValidator {
   @State var errorText: String?
   @State var firstname: String = ""
   @State var lastname: String = ""
-  
+  @State var username: String = ""
+
   public var onComplete: (() -> ())?
   
   var body: some View {
@@ -49,6 +50,19 @@ struct RegisterView: View, LoginValidator {
           .frame(width: 400, height: 30)
           .padding([.leading], 20)
           .padding(.top, 30)
+      
+      
+      ClosableTextField(viewModel: CloseableTextFieldViewModel(buttonTitle: "close",
+                                                               placeholder: "username",
+                                                               placeholderColor: .systemGray,
+                                                               textSize: 25,
+                                                               textAlignment: .left,
+                                                               textColor: theme.lightTextColor.uiColor()),
+                        text: self.$username,
+                        keyType: .default)
+        .frame(width: 400, height: 30)
+        .padding([.leading], 20)
+        .padding(.top, 30)
 
         ClosableTextField(viewModel: CloseableTextFieldViewModel(buttonTitle: "close",
                                                                  placeholder: "email",
@@ -113,7 +127,8 @@ struct RegisterView: View, LoginValidator {
         return
       }
       
-      let preprofile = PreProfile(firstName: self.firstname, lastName: self.lastname)
+      let preprofile = PreProfile(firstName: self.firstname,
+                                  lastName: self.lastname, username: self.username)
       
       self.state.register(credentials: creds, preProfile: preprofile) { (result) in
         switch result {

@@ -16,7 +16,7 @@
 		9125121325BF7768001E071A /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125121225BF7768001E071A /* PlayerView.swift */; };
 		9125121825BF7782001E071A /* PlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125121725BF7782001E071A /* PlayerViewModel.swift */; };
 		912A0F4A25BBCFB8005D15FF /* SwiftlyReduxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A0F4925BBCFB8005D15FF /* SwiftlyReduxApp.swift */; };
-		912A0F4C25BBCFB8005D15FF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A0F4B25BBCFB8005D15FF /* ContentView.swift */; };
+		912A0F4C25BBCFB8005D15FF /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A0F4B25BBCFB8005D15FF /* HomePageView.swift */; };
 		912A0F4E25BBCFBA005D15FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 912A0F4D25BBCFBA005D15FF /* Assets.xcassets */; };
 		912A0F5125BBCFBA005D15FF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 912A0F5025BBCFBA005D15FF /* Preview Assets.xcassets */; };
 		912A0F5C25BBCFBA005D15FF /* SwiftlyReduxTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A0F5B25BBCFBA005D15FF /* SwiftlyReduxTests.swift */; };
@@ -93,7 +93,7 @@
 		9125121725BF7782001E071A /* PlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerViewModel.swift; sourceTree = "<group>"; };
 		912A0F4625BBCFB8005D15FF /* SwiftlyRedux.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftlyRedux.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		912A0F4925BBCFB8005D15FF /* SwiftlyReduxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftlyReduxApp.swift; sourceTree = "<group>"; };
-		912A0F4B25BBCFB8005D15FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		912A0F4B25BBCFB8005D15FF /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
 		912A0F4D25BBCFBA005D15FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		912A0F5025BBCFBA005D15FF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		912A0F5225BBCFBA005D15FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -322,7 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				914BE6DF25BC89CF0018C9B1 /* ClosableTextField.swift */,
-				912A0F4B25BBCFB8005D15FF /* ContentView.swift */,
+				912A0F4B25BBCFB8005D15FF /* HomePageView.swift */,
 				914BE64525BC748C0018C9B1 /* LoadingViewModifier.swift */,
 				914BE6CC25BC88C20018C9B1 /* ImagePicker.swift */,
 				914BE6D125BC896A0018C9B1 /* LoginView.swift */,
@@ -625,7 +625,7 @@
 				9125121825BF7782001E071A /* PlayerViewModel.swift in Sources */,
 				912511FF25BF73D9001E071A /* FeedView.swift in Sources */,
 				914BE64625BC748C0018C9B1 /* LoadingViewModifier.swift in Sources */,
-				912A0F4C25BBCFB8005D15FF /* ContentView.swift in Sources */,
+				912A0F4C25BBCFB8005D15FF /* HomePageView.swift in Sources */,
 				9125120E25BF750A001E071A /* MediaCell.swift in Sources */,
 				914BE69325BC77510018C9B1 /* Media.swift in Sources */,
 				912A0FA025BBD1F9005D15FF /* FirestoreManager.swift in Sources */,

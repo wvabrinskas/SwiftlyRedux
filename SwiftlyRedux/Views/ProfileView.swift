@@ -43,17 +43,41 @@ struct ProfileView: View {
       })
       .padding()
       
+      //        let username = (self.profile?.username ?? "").lowercased()
+
       Text("\(self.viewModel.firstname) \(self.viewModel.lastname)")
         .font(Font.system(size: 30))
         .foregroundColor(theme.lightTextColor)
         .fontWeight(.bold)
-        .padding([.bottom, .top], 20)
+        .padding([.top], 20)
+        .frame(maxWidth: .infinity, alignment: .center)
+      
+      Text("\(self.viewModel.username.lowercased())")
+        .font(Font.system(size: 20))
+        .foregroundColor(theme.lightTextColor)
+        .fontWeight(.light)
+        .padding([.bottom], 20)
         .frame(maxWidth: .infinity, alignment: .center)
       
       
-      logoutButton()
+      VStack {
+        Text("\(self.viewModel.mediaCount)")
+          .font(Font.system(size: 16))
+          .foregroundColor(theme.lightTextColor)
+          .fontWeight(.bold)
+          .frame(maxWidth: .infinity, alignment: .center)
+        
+        Text("posts")
+          .font(Font.system(size: 16))
+          .foregroundColor(theme.lightTextColor)
+          .fontWeight(.bold)
+          .frame(maxWidth: .infinity, alignment: .center)
+      }
       
       Spacer()
+      
+      logoutButton()
+        .padding(.bottom, 20)
     }
     .onReceive(self.state.subscribe(type: .auth)) { (user: AuthModule.ObjectType?) in
       self.profile = user
@@ -110,7 +134,7 @@ struct ProfileView: View {
     AnyView(Button(action: { self.logout() } ) {
       Text("sign out")
         .font(Font.system(size: 20))
-        .foregroundColor(theme.lightTextColor)
+        .foregroundColor(Color.indianRed)
         .fontWeight(.bold)
     }
     .frame(width: 100, height: 50)

@@ -8,7 +8,7 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct ContentView: View {
+struct HomePageView: View {
   @Environment(\.state) var state
   @Environment(\.theme) var theme
   
@@ -20,7 +20,7 @@ struct ContentView: View {
   
   @State private var activeSheet: ActionSheet?
   @State private var showLogin: Bool = false
-  @State private var profile: Profile?
+  @State private var profile:  AuthModule.ObjectType?
   @State private var loading: Bool = true
   
   private var bodyAnimation: Animation {
@@ -31,28 +31,33 @@ struct ContentView: View {
 
     VStack(spacing: 20) {
       HStack {
+        let username = (self.profile?.username ?? "").lowercased()
+        HeaderView(viewModel: HeaderViewModel(title: self.profile == nil ? "Swiftly Redux" : "Media feed",
+                                              subtitle: self.profile == nil ? "an example of modular redux in swift" : username))
+          .padding([.leading, .trailing], 20)
+          .padding(.top, 10)
+
         self.profileButton()
           .animation(self.bodyAnimation)
       }
       .frame(maxWidth: .infinity, maxHeight: 40, alignment: .trailing)
       .padding(.trailing, 20)
       
-      HeaderView(viewModel: HeaderViewModel(title: "Swiftly Redux",
-                                            subtitle: "an example of modular redux in swift"))
-        .padding([.leading, .trailing], 20)
-    
-      Spacer()
-      Image("swift")
-        .resizable()
-        .aspectRatio(contentMode: .fit)
-        .frame(width: 300, height: 300)
       
-      Spacer()
-      
+
       if self.profile == nil {
+        Spacer()
+        Image("swift")
+          .resizable()
+          .aspectRatio(contentMode: .fit)
+          .frame(width: 300, height: 300)
+        
+        Spacer()
         self.buttonStack()
           .transition(.scale)
       }
+      
+      Spacer()
 
     }
     .padding(.top, 100)

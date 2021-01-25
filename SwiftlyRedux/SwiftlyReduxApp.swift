@@ -32,7 +32,7 @@ struct SwiftlyReduxApp: App {
 //      }
       
       
-      ContentView()
+      HomePageView()
     }
   }
 }

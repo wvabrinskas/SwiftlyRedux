@@ -11,6 +11,7 @@ import Foundation
 struct PreProfile {
   var firstName: String
   var lastName: String
+  var username: String
   var profileImage: String? = nil
 }
 
@@ -18,6 +19,7 @@ struct Profile: Codable {
   var userId: String
   var firstName: String
   var lastName: String
+  var username: String
   var profileImage: String?
   var feed: Feed
   
@@ -27,11 +29,13 @@ struct Profile: Codable {
     case lastName
     case profileImage
     case feed
+    case username
   }
   
   public init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)
     userId = try values.decode(String.self, forKey: .userId)
+    username = try values.decodeIfPresent(String.self, forKey: .username) ?? ""
     firstName = try values.decodeIfPresent(String.self, forKey: .firstName) ?? ""
     lastName = try values.decodeIfPresent(String.self, forKey: .lastName) ?? ""
     profileImage = try values.decodeIfPresent(String.self, forKey: .profileImage)
@@ -44,11 +48,13 @@ struct Profile: Codable {
     self.lastName = preProfile.lastName
     self.profileImage = preProfile.profileImage
     self.feed = Feed()
+    self.username = preProfile.username
   }
   
   public init(userId: String,
               firstName: String,
               lastName: String,
+              username: String,
               profileImage: String? = nil,
               feed: Feed = Feed()) {
     
@@ -57,5 +63,6 @@ struct Profile: Codable {
     self.lastName = lastName
     self.profileImage = profileImage
     self.feed = feed
+    self.username = username
   }
 }

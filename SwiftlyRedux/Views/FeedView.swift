@@ -11,7 +11,7 @@ struct FeedView: View {
   @Environment(\.state) var state
   @Environment(\.theme) var theme
   
-  @State var media: [Media] = []
+  @State var media: MediaModule.ObjectType = []
   
   var viewModel: FeedViewModel
   
