@@ -41,10 +41,8 @@ struct ProfileView: View {
         profileImage()
           .clipShape(Circle())
       })
-      .padding()
+      .padding(.top, 22)
       
-      //        let username = (self.profile?.username ?? "").lowercased()
-
       Text("\(self.viewModel.firstname) \(self.viewModel.lastname)")
         .font(Font.system(size: 30))
         .foregroundColor(theme.lightTextColor)

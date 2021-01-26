@@ -60,11 +60,11 @@ struct MediaUploadView: View {
         
       }
       .frame(height: 120)
-      .padding([.leading, .trailing], 20)
+      .padding([.leading, .trailing], 26)
       .padding(.top, 5)
       .overlay(RoundedRectangle(cornerRadius: 25)
-                .stroke(theme.lightTextColor, lineWidth: 2)
-                .padding([.leading, .trailing], 10)
+                .stroke(Color(.sRGB, white: 1.0, opacity: 0.3), lineWidth: 2)
+                .padding([.leading, .trailing], 26)
                 .padding(.top, 5))
           
       Button(action: { self.upload() } ) {

@@ -44,17 +44,28 @@ struct HomePageView: View {
       .frame(maxWidth: .infinity, maxHeight: 40, alignment: .trailing)
       .padding(.trailing, 20)
       
-      
-      if let feed = self.feed {
-        FeedView(viewModel: FeedViewModel(feed: feed))
-          .background(theme.secondaryBackground)
-      }
+      ZStack {
+        if let feed = self.feed, let _ = self.profile {
+          FeedView(viewModel: FeedViewModel(feed: feed))
+            .background(theme.secondaryBackground)
+        }
+        VStack {
+          Spacer()
+          if self.profile != nil {
+            uploadButtonStack()
+              .padding(.bottom, 50)
+              .padding(.top, 30)
+              .frame(maxWidth: .infinity, alignment: .center)
+              .background(LinearGradient(gradient: Gradient(colors: [Color(.sRGB, white: 0.0, opacity: 0.7), .clear]),
+                                         startPoint: .bottom,
+                                         endPoint: .top))
+          }
+        }
 
-      if self.profile != nil {
-        uploadButtonStack()
-          .padding(.bottom, 40)
-      }
+        .edgesIgnoringSafeArea(.all)
 
+      }
+    
       if self.profile == nil {
         Spacer()
         Image("swift")
@@ -69,6 +80,11 @@ struct HomePageView: View {
       
       Spacer()
 
+    }
+    .onAppear {
+      if let user = profile {
+        self.state.getFeed(id: user.feed)
+      }
     }
     .padding(.top, 100)
     .onReceive(state.subscribe(type: .auth), perform: { (user: AuthModule.ObjectType?) in

@@ -24,6 +24,8 @@ struct FeedView: View {
       }
       .frame(maxWidth: .infinity, alignment: .center)
       .listRowBackground(theme.secondaryBackground)
+      Spacer()
+        .listRowBackground(theme.secondaryBackground)
     }
     .background(theme.secondaryBackground).edgesIgnoringSafeArea(.all)
     .onAppear {

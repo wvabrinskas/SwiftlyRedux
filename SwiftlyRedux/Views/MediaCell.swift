@@ -23,7 +23,8 @@ struct MediaCell: View {
         .fontWeight(.bold)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding([.trailing, .leading], 16)
-        .padding([.bottom, .top], 8)
+        .padding([.top], 8)
+        .padding(.bottom, 16)
         .foregroundColor(theme.darkTextColor)
       
     }
