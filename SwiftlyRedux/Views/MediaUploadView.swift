@@ -10,11 +10,15 @@ import SwiftUI
 struct MediaUploadView: View {
   @Environment(\.state) var state
   @Environment(\.theme) var theme
+  @Environment(\.presentationMode) var mode
+
+  var viewModel: MediaUploadViewModel
   
   @State var showImagePicker: Bool = false
   @State var image: UIImage?
   @State var imageTypeToShow: ImageType?
   @State var description: String = ""
+  @State var uploading: Bool = false
 
   enum ImageType: Identifiable {
     case camera, library
@@ -87,12 +91,39 @@ struct MediaUploadView: View {
         uploadPicView(source: .photoLibrary)
       }
     }
+    .loadable(title: "uploading..",
+              showing: self.$uploading,
+              background: theme.secondaryBackground,
+              textColor: theme.lightTextColor)
     .background(theme.background).edgesIgnoringSafeArea(.all)
   }
   
   private func upload() {
+    guard let image = image else {
+      return
+    }
     
+    self.uploading = true
+    
+    self.state.uploadMediaImage(feedId: self.viewModel.feed.id, image: image) { (url) in
+      guard let url = url else {
+        return
+      }
+      
+      let media = Media(url: url.absoluteString, type: .photo, description: self.description)
+      self.state.uploadMedia(media: media, to: self.viewModel.feed) { (result) in
+        self.uploading = false
+
+        switch result {
+        case .success:
+          self.mode.wrappedValue.dismiss()
+        case let .failure(error):
+          print(error)
+        }
+      }
+    }
   }
+  
   private func uploadButtonStack() -> AnyView {
     AnyView(HStack(spacing: 100) {
       Button(action: {

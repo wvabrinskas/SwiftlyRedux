@@ -39,4 +39,8 @@ class Default: Theme {
   var secondaryBackground: Color {
     .steelBlue
   }
+  
+  var cellColor: Color {
+    .whiteSmoke
+  }
 }

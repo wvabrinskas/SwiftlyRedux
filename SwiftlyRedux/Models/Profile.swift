@@ -21,7 +21,7 @@ struct Profile: Codable {
   var lastName: String
   var username: String
   var profileImage: String?
-  var feed: Feed
+  var feed: String
   
   enum CodingKeys: String, CodingKey {
     case userId
@@ -39,7 +39,7 @@ struct Profile: Codable {
     firstName = try values.decodeIfPresent(String.self, forKey: .firstName) ?? ""
     lastName = try values.decodeIfPresent(String.self, forKey: .lastName) ?? ""
     profileImage = try values.decodeIfPresent(String.self, forKey: .profileImage)
-    feed = try values.decodeIfPresent(Feed.self, forKey: .feed) ?? Feed()
+    feed = try values.decodeIfPresent(String.self, forKey: .feed) ?? ""
   }
   
   public init(id: String, preProfile: PreProfile) {
@@ -47,7 +47,7 @@ struct Profile: Codable {
     self.firstName = preProfile.firstName
     self.lastName = preProfile.lastName
     self.profileImage = preProfile.profileImage
-    self.feed = Feed()
+    self.feed = UUID().uuidString
     self.username = preProfile.username
   }
   
@@ -56,7 +56,7 @@ struct Profile: Codable {
               lastName: String,
               username: String,
               profileImage: String? = nil,
-              feed: Feed = Feed()) {
+              feed: String = UUID().uuidString) {
     
     self.userId = userId
     self.firstName = firstName

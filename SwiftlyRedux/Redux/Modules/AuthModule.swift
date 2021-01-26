@@ -92,7 +92,6 @@ class AuthModule: Module, FirestoreManager {
     }
     
     self.getDoc(ref: .users(id: user.userId)) { [weak self] (result: Result<Profile?, Error>) in
-      
       switch result {
       case let .success(profile):
         self?.user = profile
@@ -100,9 +99,7 @@ class AuthModule: Module, FirestoreManager {
         return
         
       }
-      
     }
-    
   }
   
   public func signedInUserIsDefault(_ user: User? = nil) -> Bool  {

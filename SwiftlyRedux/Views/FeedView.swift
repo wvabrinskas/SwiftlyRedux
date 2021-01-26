@@ -27,7 +27,7 @@ struct FeedView: View {
     }
     .background(theme.secondaryBackground).edgesIgnoringSafeArea(.all)
     .onAppear {
-      self.state.getFeed(feed: viewModel.feed)
+      self.state.getFeedMedia(feed: viewModel.feed)
     }
     .onReceive(state.subscribe(type: .media), perform: { (media: MediaModule.ObjectType?) in
       if let media = media {

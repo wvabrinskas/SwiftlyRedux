@@ -18,6 +18,8 @@
 		9125122025BF868B001E071A /* MediaUploadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125121F25BF868B001E071A /* MediaUploadView.swift */; };
 		9125122525BF8AA1001E071A /* TextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125122425BF8AA1001E071A /* TextView.swift */; };
 		9125122A25BF8ABC001E071A /* TextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125122925BF8ABC001E071A /* TextViewModel.swift */; };
+		9125122F25BF90E9001E071A /* MediaUploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125122E25BF90E9001E071A /* MediaUploadViewModel.swift */; };
+		9125123425BF9A9B001E071A /* FeedModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9125123325BF9A9B001E071A /* FeedModule.swift */; };
 		912A0F4A25BBCFB8005D15FF /* SwiftlyReduxApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A0F4925BBCFB8005D15FF /* SwiftlyReduxApp.swift */; };
 		912A0F4C25BBCFB8005D15FF /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912A0F4B25BBCFB8005D15FF /* HomePageView.swift */; };
 		912A0F4E25BBCFBA005D15FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 912A0F4D25BBCFBA005D15FF /* Assets.xcassets */; };
@@ -97,6 +99,8 @@
 		9125121F25BF868B001E071A /* MediaUploadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaUploadView.swift; sourceTree = "<group>"; };
 		9125122425BF8AA1001E071A /* TextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextView.swift; sourceTree = "<group>"; };
 		9125122925BF8ABC001E071A /* TextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewModel.swift; sourceTree = "<group>"; };
+		9125122E25BF90E9001E071A /* MediaUploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaUploadViewModel.swift; sourceTree = "<group>"; };
+		9125123325BF9A9B001E071A /* FeedModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModule.swift; sourceTree = "<group>"; };
 		912A0F4625BBCFB8005D15FF /* SwiftlyRedux.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftlyRedux.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		912A0F4925BBCFB8005D15FF /* SwiftlyReduxApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftlyReduxApp.swift; sourceTree = "<group>"; };
 		912A0F4B25BBCFB8005D15FF /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -283,6 +287,7 @@
 				912A0FB325BBD21F005D15FF /* AuthModule.swift */,
 				912A0FB425BBD21F005D15FF /* SessionModule.swift */,
 				912A0FAF25BBD21F005D15FF /* MediaModule.swift */,
+				9125123325BF9A9B001E071A /* FeedModule.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -357,6 +362,7 @@
 				9125120825BF74E0001E071A /* MediaCellViewModel.swift */,
 				9125121725BF7782001E071A /* PlayerViewModel.swift */,
 				9125122925BF8ABC001E071A /* TextViewModel.swift */,
+				9125122E25BF90E9001E071A /* MediaUploadViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -636,6 +642,7 @@
 				9125122525BF8AA1001E071A /* TextView.swift in Sources */,
 				914BE64625BC748C0018C9B1 /* LoadingViewModifier.swift in Sources */,
 				912A0F4C25BBCFB8005D15FF /* HomePageView.swift in Sources */,
+				9125122F25BF90E9001E071A /* MediaUploadViewModel.swift in Sources */,
 				9125120E25BF750A001E071A /* MediaCell.swift in Sources */,
 				914BE69325BC77510018C9B1 /* Media.swift in Sources */,
 				912A0FA025BBD1F9005D15FF /* FirestoreManager.swift in Sources */,
@@ -665,6 +672,7 @@
 				91F1ED1725BC9994005140FA /* ProfileView.swift in Sources */,
 				91F1ED2125BC9A56005140FA /* ButtonViewModel.swift in Sources */,
 				9125122025BF868B001E071A /* MediaUploadView.swift in Sources */,
+				9125123425BF9A9B001E071A /* FeedModule.swift in Sources */,
 				912A0FBE25BBD21F005D15FF /* SessionModule.swift in Sources */,
 				912A0FB925BBD21F005D15FF /* MediaModule.swift in Sources */,
 				9125121325BF7768001E071A /* PlayerView.swift in Sources */,

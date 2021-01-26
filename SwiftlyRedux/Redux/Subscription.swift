@@ -43,3 +43,8 @@ struct SessionSubscription: Subscription {
   typealias TModule = SessionModule
   var module: SessionModule = SessionModule()
 }
+
+struct FeedSubscription: Subscription {
+  typealias TModule = FeedModule
+  var module: FeedModule = FeedModule()
+}

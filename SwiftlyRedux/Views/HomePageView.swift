@@ -22,6 +22,7 @@ struct HomePageView: View {
   @State private var showLogin: Bool = false
   @State private var profile:  AuthModule.ObjectType?
   @State private var loading: Bool = true
+  @State private var feed: Feed?
   
   private var bodyAnimation: Animation {
     Animation.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.1)
@@ -44,7 +45,7 @@ struct HomePageView: View {
       .padding(.trailing, 20)
       
       
-      if let feed = self.profile?.feed {
+      if let feed = self.feed {
         FeedView(viewModel: FeedViewModel(feed: feed))
           .background(theme.secondaryBackground)
       }
@@ -72,7 +73,13 @@ struct HomePageView: View {
     .padding(.top, 100)
     .onReceive(state.subscribe(type: .auth), perform: { (user: AuthModule.ObjectType?) in
       self.profile = user
+      if let user = user {
+        self.state.getFeed(id: user.feed)
+      }
       self.loading = false
+    })
+    .onReceive(state.subscribe(type: .feed), perform: { (feed: FeedModule.ObjectType?) in
+      self.feed = feed
     })
     .sheet(item: self.$activeSheet) { sheet in
       switch sheet {
@@ -83,7 +90,11 @@ struct HomePageView: View {
       case .profile:
         profileView()
       case .upload:
-        MediaUploadView()
+        if let feed = self.feed {
+          MediaUploadView(viewModel: MediaUploadViewModel(feed: feed))
+        } else {
+          EmptyView()
+        }
       }
     }
     .animation(self.bodyAnimation)
@@ -137,10 +148,10 @@ struct HomePageView: View {
   }
   
   private func profileView() -> AnyView {
-    guard let profile = profile else {
+    guard let profile = profile, let feed = feed else {
       return AnyView(EmptyView())
     }
-    return AnyView(ProfileView(viewModel: ProfileViewModel(profile: profile)))
+    return AnyView(ProfileView(viewModel: ProfileViewModel(profile: profile, feed: feed)))
   }
   
   private func login() {

@@ -8,13 +8,13 @@ struct ProfileViewModel {
   var username: String
   var mediaCount: Int
   
-  init(profile: Profile) {
+  init(profile: Profile, feed: Feed) {
     self.firstname = profile.firstName
     self.lastname = profile.lastName
     self.uid = profile.userId
     self.image = profile.profileImage
     self.username = profile.username
-    self.mediaCount = profile.feed.media.count
+    self.mediaCount = feed.media.count
   }
 }
 

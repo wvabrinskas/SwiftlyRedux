@@ -34,4 +34,16 @@ public struct Media: Codable, Identifiable {
     uploadDate = try values.decodeIfPresent(Date.self, forKey: .uploadDate) ?? Date()
     description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
   }
+  
+  public init(id: String = UUID().uuidString,
+              url: String,
+              type: MediaType,
+              uploadDate: Date = Date(),
+              description: String = "") {
+    self.id = id
+    self.url = url
+    self.type = type
+    self.uploadDate = uploadDate
+    self.description = description
+  }
 }

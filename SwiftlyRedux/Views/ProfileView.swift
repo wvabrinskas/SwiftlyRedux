@@ -105,12 +105,9 @@ struct ProfileView: View {
       return
     }
     
-    guard let profile = profile else {
-      return
-    }
     self.showLoading = true
     
-    self.state.uploadImage(.profile(id: profile.userId), image: image) { (url) in
+    self.state.uploadProfileImage(image: image) { (url) in
       DispatchQueue.main.async {
         self.showLoading = false
       }

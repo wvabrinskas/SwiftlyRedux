@@ -16,17 +16,19 @@ struct MediaCell: View {
   var body: some View {
     VStack(spacing: 5) {
       mediaVisualView()
+        .shadow(color: Color(.sRGB, white: 0.0, opacity: 0.4), radius: 5, x: 0, y: 10)
       
       Text(self.viewModel.media.description)
-        .font(Font.system(size: 22))
-        .fontWeight(.black)
+        .font(Font.system(size: 15))
+        .fontWeight(.bold)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding([.trailing, .leading], 16)
-        .padding(.top, 8)
-        .foregroundColor(theme.lightTextColor)
+        .padding([.bottom, .top], 8)
+        .foregroundColor(theme.darkTextColor)
       
     }
-    .background(theme.secondaryBackground)
+    .background(theme.cellColor)
+    .cornerRadius(25)
   }
   
   func mediaVisualView() -> AnyView {
@@ -43,7 +45,8 @@ struct MediaCell: View {
           Color.lightSlateGray
         }
         .indicator(.activity)
-        .aspectRatio(16/9, contentMode: .fit))
+        .aspectRatio(16/9, contentMode: .fit)
+        .cornerRadius(25))
       
     case .video:
       return

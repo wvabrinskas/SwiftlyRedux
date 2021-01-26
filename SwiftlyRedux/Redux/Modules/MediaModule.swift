@@ -63,18 +63,31 @@ class MediaModule: Module, FirestoreManager, FireStorageManager {
         var oldMedia = feed.media
         oldMedia.append(media.id)
         
-        let updates = ["media" : oldMedia]
+        let updates: [String: Any] = ["id" : feed.id,
+                                      "media" : oldMedia]
         
-        //if media upload successful, update the feed document
+        //if media upload successful, update the feed d50ocument
         self?.updateDoc(ref: .feed(id: feed.id), value: updates) { [weak self] (updateResult) in
-          switch result {
+          switch updateResult {
           case .success:
+            
             var oldMediaObjects = self?.object
             oldMediaObjects?.append(media)
             self?.object = oldMediaObjects
-            
-          case let .failure(error):
-            complete?(.failure(error))
+            complete?(.success(true))
+
+          case .failure:
+            //try to set the doc if update fails
+            //create a new feed using the object
+            let newFeed = Feed(id: feed.id, media: oldMedia)
+            self?.setDoc(ref: .feed(id: feed.id), value: newFeed) { (updateResult) in
+              switch result {
+              case .success:
+                complete?(.success(true))
+              case let .failure(error):
+                complete?(.failure(error))
+              }
+            }
           }
         }
         

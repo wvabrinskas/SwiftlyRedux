@@ -17,11 +17,13 @@ class StateCoordinator {
   private let auth = AuthSubscription()
   private let media = MediaSubscription()
   private let session = SessionSubscription()
-  
+  private let feed = FeedSubscription()
+
   enum SubscriptionType {
     case auth
     case media
     case session
+    case feed
   }
 
   public func object<TType>(type: SubscriptionType) -> TType? {
@@ -32,6 +34,8 @@ class StateCoordinator {
       return self.session.obj()
     case .media:
       return self.media.obj()
+    case .feed:
+      return self.feed.obj()
     }
   }
   
@@ -43,7 +47,16 @@ class StateCoordinator {
       return self.session.publisher()
     case .media:
       return self.media.publisher()
+    case .feed:
+      return self.feed.publisher()
     }
+  }
+}
+
+//MARK: Feed
+extension StateCoordinator {
+  public func getFeed(id: String) {
+    self.feed.module.getFeed(id: id)
   }
 }
 
@@ -78,13 +91,8 @@ extension StateCoordinator {
     self.auth.module.register(credentials: credentials, preProfile: preProfile, complete: complete)
   }
   
-  public func uploadImage(_ location: PhotoLocation, image: UIImage?, complete: @escaping (_ url: URL?) -> ()) {
-    switch location {
-    case .profile:
-      self.auth.module.uploadImage(image: image, complete: complete)
-    case .feed:
-      print("upload to story")
-    }
+  public func uploadProfileImage(image: UIImage?, complete: @escaping (_ url: URL?) -> ()) {
+    self.auth.module.uploadImage(image: image, complete: complete)
   }
 }
 
@@ -116,7 +124,7 @@ extension StateCoordinator {
     view.delegate = self.media.module
   }
   
-  public func getFeed(feed: Feed) {
+  public func getFeedMedia(feed: Feed) {
     self.media.module.get(feed: feed)
   }
   
@@ -124,11 +132,24 @@ extension StateCoordinator {
     self.media.module.addMedia(media: media, to: feed) { [weak self] (result) in
       //update user profile
       //should be done automatically using the the auth state
+      complete?(result)
       self?.auth.module.refreshUser()
     }
   }
   
   public func getVideoId(for url: String) -> String? {
     return self.media.module.getVideoId(from: url)
+  }
+  
+  public func uploadMediaImage(feedId: String, image: UIImage?, complete: @escaping (_ url: URL?) -> ()) {
+    self.media.module.upload(.feed(id: feedId), image: image) { (result) in
+      switch result {
+      case let .success(url):
+      complete(url)
+      case let .failure(error):
+        complete(nil)
+        print(error)
+      }
+    }
   }
 }
