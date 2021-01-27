@@ -18,7 +18,8 @@ public struct Media: Codable, Identifiable, Equatable {
   public var uploadDate: Date = Date()
   public var description: String = ""
   public var comments: [String] = []
-  
+  public var feedRefId: String
+
   enum CodingKeys: String, CodingKey {
     case id
     case url
@@ -26,6 +27,7 @@ public struct Media: Codable, Identifiable, Equatable {
     case uploadDate
     case description
     case comments
+    case feedRefId
   }
 
   public init(from decoder: Decoder) throws {
@@ -36,6 +38,7 @@ public struct Media: Codable, Identifiable, Equatable {
     uploadDate = try values.decodeIfPresent(Date.self, forKey: .uploadDate) ?? Date()
     description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
     comments = try values.decodeIfPresent([String].self, forKey: .comments) ?? []
+    feedRefId = try values.decode(String.self, forKey: .feedRefId)
   }
   
   public init(id: String = UUID().uuidString,
@@ -43,12 +46,14 @@ public struct Media: Codable, Identifiable, Equatable {
               type: MediaType,
               uploadDate: Date = Date(),
               description: String = "",
-              comments: [String] = []) {
+              comments: [String] = [],
+              feedRefId: String) {
     self.id = id
     self.url = url
     self.type = type
     self.uploadDate = uploadDate
     self.description = description
     self.comments = comments
+    self.feedRefId = feedRefId
   }
 }

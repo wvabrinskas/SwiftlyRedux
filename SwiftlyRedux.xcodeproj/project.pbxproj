@@ -56,6 +56,10 @@
 		914BE6E625BC8A9C0018C9B1 /* Color+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914BE6E525BC8A9C0018C9B1 /* Color+ext.swift */; };
 		91C3523125C1E7D900248160 /* CommentsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3523025C1E7D900248160 /* CommentsModule.swift */; };
 		91C3523625C1E7EE00248160 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3523525C1E7EE00248160 /* Comment.swift */; };
+		91C3523B25C1F7F500248160 /* CommentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3523A25C1F7F500248160 /* CommentsView.swift */; };
+		91C3524025C1F81D00248160 /* CommentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3523F25C1F81D00248160 /* CommentsViewModel.swift */; };
+		91C3524525C1FA7700248160 /* CommentCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3524425C1FA7700248160 /* CommentCellViewModel.swift */; };
+		91C3524A25C1FAFF00248160 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3524925C1FAFF00248160 /* CommentCell.swift */; };
 		91F1ED0825BC9049005140FA /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED0725BC9049005140FA /* HeaderView.swift */; };
 		91F1ED0D25BC907E005140FA /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED0C25BC907E005140FA /* HeaderViewModel.swift */; };
 		91F1ED1225BC9740005140FA /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED1125BC9740005140FA /* RegisterView.swift */; };
@@ -142,6 +146,10 @@
 		914BE6E525BC8A9C0018C9B1 /* Color+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ext.swift"; sourceTree = "<group>"; };
 		91C3523025C1E7D900248160 /* CommentsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsModule.swift; sourceTree = "<group>"; };
 		91C3523525C1E7EE00248160 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		91C3523A25C1F7F500248160 /* CommentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsView.swift; sourceTree = "<group>"; };
+		91C3523F25C1F81D00248160 /* CommentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewModel.swift; sourceTree = "<group>"; };
+		91C3524425C1FA7700248160 /* CommentCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCellViewModel.swift; sourceTree = "<group>"; };
+		91C3524925C1FAFF00248160 /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		91F1ED0725BC9049005140FA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		91F1ED0C25BC907E005140FA /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
 		91F1ED1125BC9740005140FA /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -353,6 +361,8 @@
 				9125121225BF7768001E071A /* PlayerView.swift */,
 				9125121F25BF868B001E071A /* MediaUploadView.swift */,
 				9125122425BF8AA1001E071A /* TextView.swift */,
+				91C3523A25C1F7F500248160 /* CommentsView.swift */,
+				91C3524925C1FAFF00248160 /* CommentCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -369,6 +379,8 @@
 				9125121725BF7782001E071A /* PlayerViewModel.swift */,
 				9125122925BF8ABC001E071A /* TextViewModel.swift */,
 				9125122E25BF90E9001E071A /* MediaUploadViewModel.swift */,
+				91C3523F25C1F81D00248160 /* CommentsViewModel.swift */,
+				91C3524425C1FA7700248160 /* CommentCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -642,6 +654,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91C3524525C1FA7700248160 /* CommentCellViewModel.swift in Sources */,
 				9125120925BF74E0001E071A /* MediaCellViewModel.swift in Sources */,
 				91C3523625C1E7EE00248160 /* Comment.swift in Sources */,
 				9125121825BF7782001E071A /* PlayerViewModel.swift in Sources */,
@@ -656,6 +669,7 @@
 				914BE6D225BC896A0018C9B1 /* LoginView.swift in Sources */,
 				912A0F9F25BBD1F9005D15FF /* FireStorageManager.swift in Sources */,
 				912A102E25BBD6A0005D15FF /* EnvironmentVars.swift in Sources */,
+				91C3523B25C1F7F500248160 /* CommentsView.swift in Sources */,
 				914BE6E025BC89CF0018C9B1 /* ClosableTextField.swift in Sources */,
 				91F1ED1225BC9740005140FA /* RegisterView.swift in Sources */,
 				912A0FE325BBD3B0005D15FF /* Profile.swift in Sources */,
@@ -666,6 +680,7 @@
 				912A0FBB25BBD21F005D15FF /* Module.swift in Sources */,
 				912A0FBD25BBD21F005D15FF /* AuthModule.swift in Sources */,
 				912A102825BBD66D005D15FF /* Theme.swift in Sources */,
+				91C3524A25C1FAFF00248160 /* CommentCell.swift in Sources */,
 				91F1ED2625BC9A67005140FA /* ButtonView.swift in Sources */,
 				912A0FB825BBD21F005D15FF /* Subscription.swift in Sources */,
 				912A0FE425BBD3B0005D15FF /* RealtimeSession.swift in Sources */,
@@ -681,6 +696,7 @@
 				9125122025BF868B001E071A /* MediaUploadView.swift in Sources */,
 				9125123425BF9A9B001E071A /* FeedModule.swift in Sources */,
 				912A0FBE25BBD21F005D15FF /* SessionModule.swift in Sources */,
+				91C3524025C1F81D00248160 /* CommentsViewModel.swift in Sources */,
 				912A0FB925BBD21F005D15FF /* MediaModule.swift in Sources */,
 				9125121325BF7768001E071A /* PlayerView.swift in Sources */,
 				912A0FB725BBD21F005D15FF /* DataCoordinator.swift in Sources */,

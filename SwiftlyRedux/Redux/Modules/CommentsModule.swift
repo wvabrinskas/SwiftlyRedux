@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+//CURRENT LIMITATION: CAN ONLY ACCESS ONE MEDIA OBJECTS COMMENTS AT A TIME
 class CommentsModule: Module, FirestoreManager, FireStorageManager {
 
   typealias ObjectType = [Comment]
@@ -28,19 +28,38 @@ class CommentsModule: Module, FirestoreManager, FireStorageManager {
   @Published var object: ObjectType?
   var objectPublisher: Published<ObjectType?>.Publisher { $object }
   
-  func getComments(id: String) {
-    self.getDoc(ref: .comments(id: id)) { (result: Result<ObjectType, Error>) in
-      switch result {
-      case let .success(comments):
-        self.object = comments
-      case let .failure(error):
-        self.object = []
-        print(error)
+  public func getComments(media: Media) {
+    DispatchQueue.global(qos: .userInitiated).async {
+      let group = DispatchGroup()
+      
+      var intermediateComments: [Comment] = []
+      
+      media.comments.forEach { [weak self] (id) in
+        group.enter()
+        
+        self?.get(comment: id, complete: { (result) in
+          switch result {
+          case let .success(comment):
+            intermediateComments.append(comment)
+            group.leave()
+          case .failure(_):
+            group.leave()
+          }
+        })
+      }
+    
+      //sort by date
+      group.notify(queue: .main) { [weak self] in
+        self?.object = intermediateComments.compactMap({ $0 }).sorted(by: { $0.postedDate > $1.postedDate })
       }
     }
   }
   
-  func removeComment(comment: Comment, from media: Media, complete: FirebaseReturnBlock?) {
+  public func get(comment: String, complete: @escaping (_ result: Result<Comment, Error>) -> ()) {
+    self.getDoc(ref: .comments(id: comment), complete: complete)
+  }
+  
+  public func removeComment(comment: Comment, from media: Media, complete: FirebaseReturnBlock?) {
     guard let obj = self.object, obj.contains(comment) else {
       complete?(.failure(CommentError.nonExistError))
       return
@@ -49,9 +68,11 @@ class CommentsModule: Module, FirestoreManager, FireStorageManager {
     self.removeDoc(ref: .comments(id: comment.id)) { [weak self] (result) in
       switch result {
       case .success:
+        //convert to ids
         let updatedComments = obj.filter({ $0 != comment })
+        let commentIds = updatedComments.map({ $0.id })
         
-        let updates: [String: Any] = ["comments" : updatedComments]
+        let updates: [String: Any] = ["comments" : commentIds]
         
         //remove comment from media
         self?.updateDoc(ref: .media(id: media.id), value: updates) { [weak self] (updateResult) in
@@ -73,7 +94,7 @@ class CommentsModule: Module, FirestoreManager, FireStorageManager {
     }
   }
   
-  func addComment(comment: Comment, to media: Media, complete: FirebaseReturnBlock?) {
+  public func addComment(comment: Comment, to media: Media, complete: FirebaseReturnBlock?) {
     var oldComments = media.comments
     
     guard !oldComments.contains(comment.id) else {

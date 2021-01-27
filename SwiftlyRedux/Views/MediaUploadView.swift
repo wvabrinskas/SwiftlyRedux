@@ -139,7 +139,10 @@ struct MediaUploadView: View {
   }
   
   private func uploadMedia(type: MediaType, url: URL) {
-    let media = Media(url: url.absoluteString, type: type, description: self.description)
+    let media = Media(url: url.absoluteString,
+                      type: type,
+                      description: self.description,
+                      feedRefId: self.viewModel.feed.id)
     self.state.uploadMedia(media: media, to: self.viewModel.feed) { (result) in
       self.uploading = false
 

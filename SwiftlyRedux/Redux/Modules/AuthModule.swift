@@ -23,6 +23,17 @@ class AuthModule: Module, FirestoreManager {
     }
   }
   
+  public enum AuthError: Error {
+    case notLoggedIn
+    
+    var localizedDescription: String {
+      switch self {
+      case .notLoggedIn:
+        return "Please log in to post comments"
+      }
+    }
+  }
+    
   deinit {
     if let handle = authHandle {
       Auth.auth().removeStateDidChangeListener(handle)
@@ -48,6 +59,13 @@ class AuthModule: Module, FirestoreManager {
       self?.setProfile(user)
     })
     self.authHandle = authHandle
+  }
+  
+  //grabs a user profile. If we were to scale this we would need to move this to a lamba on Firebase
+  //that returns the neccessary data we want, since we don't want the application to pull the entire user profile
+  //Security risk!
+  public func getUserProfile(id: String, complete: @escaping (_ result: Result<Profile, Error>) -> ()) {
+    self.getDoc(ref: .users(id: id), complete: complete)
   }
   
   public func login(credentials: Credentials, complete: @escaping FirebaseReturnBlock) {

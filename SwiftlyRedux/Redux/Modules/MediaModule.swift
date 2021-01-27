@@ -64,6 +64,7 @@ class MediaModule: Module, FirestoreManager, FireStorageManager {
     
     self.getDoc(ref: .media(id: id), complete: complete)
   }
+  
 //
 //  public func removeComment(commentId: String, from media: Media, complete: FirebaseReturnBlock?) {
 //    let updatedComments = media.comments.filter({ $0 != commentId })

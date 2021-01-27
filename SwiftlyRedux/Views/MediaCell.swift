@@ -13,6 +13,14 @@ struct MediaCell: View {
   var viewModel: MediaCellViewModel
   @Environment(\.state) var state
   @Environment(\.theme) var theme
+  
+  @State private var activeSheet: ButtonSheet?
+  
+  private enum ButtonSheet: Identifiable {
+    case comments
+    
+    var id: Int { hashValue }
+  }
 
   var body: some View {
     VStack(spacing: 5) {
@@ -25,6 +33,9 @@ struct MediaCell: View {
           .frame(width: 15, height: 15, alignment: .center)
           .aspectRatio(contentMode: .fit)
           .foregroundColor(theme.darkTextColor)
+          .onTapGesture {
+            self.activeSheet = .comments
+          }
         
         Text("\(self.viewModel.media.comments.count)")
           .font(Font.system(size: 12))
@@ -45,8 +56,15 @@ struct MediaCell: View {
         .foregroundColor(theme.darkTextColor)
       
     }
+    .sheet(item: self.$activeSheet) { sheet in
+      switch sheet {
+      case .comments:
+        CommentsView(viewModel: CommentsViewModel(media: viewModel.media))
+      }
+    }
     .background(theme.cellColor)
     .cornerRadius(25)
+    
   }
   
   func mediaVisualView() -> AnyView {

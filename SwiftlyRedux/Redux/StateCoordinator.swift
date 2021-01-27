@@ -61,19 +61,44 @@ class StateCoordinator {
 
 //MARK: Comments
 extension StateCoordinator {
-  public func addComment(comment: Comment, to media: Media, complete: FirebaseReturnBlock?) {
-    self.comment.module.addComment(comment: comment, to: media, complete: complete)
+  public func addComment(comment: String, to media: Media, complete: FirebaseReturnBlock?) {
+    guard let user = self.auth.module.object else {
+      complete?(.failure(AuthModule.AuthError.notLoggedIn))
+      return
+    }
+    
+    let comment = Comment(comment: comment,
+                          poster: user.userId,
+                          mediaRefId: media.id,
+                          posterImage: user.profileImage,
+                          posterUsername: user.username)
+    
+    self.comment.module.addComment(comment: comment, to: media) { [weak self ] (result) in
+      complete?(result)
+      self?.getFeed(id: media.feedRefId)
+    }
   }
   
   public func removeComment(comment: Comment, from media: Media, complete: FirebaseReturnBlock?) {
-    self.comment.module.removeComment(comment: comment, from: media, complete: complete)
+    self.comment.module.removeComment(comment: comment, from: media) { [weak self] (result) in
+      complete?(result)
+      self?.getFeed(id: media.feedRefId)
+    }
+  }
+  
+  public func getComments(media: Media) {
+    self.comment.module.getComments(media: media)
   }
 }
 
 //MARK: Feed
 extension StateCoordinator {
   public func getFeed(id: String) {
-    self.feed.module.getFeed(id: id)
+    self.feed.module.getFeed(id: id) { [weak self] (feed) in
+      if let feed = feed {
+        self?.media.module.get(feed: feed)
+      }
+    }
   }
 }
 
@@ -110,6 +135,10 @@ extension StateCoordinator {
   
   public func uploadProfileImage(image: UIImage?, complete: @escaping (_ url: URL?) -> ()) {
     self.auth.module.uploadImage(image: image, complete: complete)
+  }
+  
+  public func getUserProfile(id: String, complete: @escaping (_ result: Result<Profile, Error>) -> ()) {
+    self.auth.module.getUserProfile(id: id, complete: complete)
   }
 }
 
@@ -169,7 +198,6 @@ extension StateCoordinator {
       }
     }
   }
-  
   
   public func uploadMediaVideo(feedId: String, url: URL?, complete: @escaping (_ url: URL?) -> ()) {
     self.media.module.uploadVideo(.feed(id: feedId), url: url) { (result) in

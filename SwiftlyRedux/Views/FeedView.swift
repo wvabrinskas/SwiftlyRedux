@@ -12,6 +12,7 @@ struct FeedView: View {
   @Environment(\.theme) var theme
   
   @State var media: MediaModule.ObjectType = []
+  @State var update: Bool = false
   
   var viewModel: FeedViewModel
   
@@ -30,6 +31,7 @@ struct FeedView: View {
     }
     .background(theme.secondaryBackground).edgesIgnoringSafeArea(.all)
     .onAppear {
+      print("feed view appearing")
       self.state.getFeedMedia(feed: viewModel.feed)
     }
     .onReceive(state.subscribe(type: .media), perform: { (media: MediaModule.ObjectType?) in
@@ -41,9 +43,11 @@ struct FeedView: View {
   
   private func deleteItem(at indexSet: IndexSet) {
     indexSet.forEach { (index) in
-      let media = self.media[index]
-      self.state.deleteMedia(media: media) { (result) in
-        print(result)
+      if index < self.media.count {
+        let media = self.media[index]
+        self.state.deleteMedia(media: media) { (result) in
+          print(result)
+        }
       }
     }
   }

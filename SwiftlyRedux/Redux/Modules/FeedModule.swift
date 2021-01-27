@@ -15,13 +15,15 @@ class FeedModule: Module, FirestoreManager, FireStorageManager {
   var objectPublisher: Published<Feed?>.Publisher { $object }
   
   
-  func getFeed(id: String) {
+  func getFeed(id: String, complete: ((_ feed: Feed?) -> ())? = nil) {
     self.getDoc(ref: .feed(id: id)) { (result: Result<Feed, Error>) in
       switch result {
       case let .success(feed):
         self.object = feed
+        complete?(feed)
       case let .failure(error):
         print(error)
+        complete?(nil)
         self.object = Feed(id: id, media: [])
       }
     }

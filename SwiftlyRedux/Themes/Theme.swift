@@ -19,4 +19,5 @@ public protocol Theme {
   var darkButtonColor: Color { get }
   var buttonSize: CGSize { get }
   var cellColor: Color { get }
+  var commentsCellColor: Color { get }
 }

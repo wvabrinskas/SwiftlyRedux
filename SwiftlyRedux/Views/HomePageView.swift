@@ -24,7 +24,7 @@ struct HomePageView: View {
   @State private var loading: Bool = true
   @State private var feed: Feed?
   @State private var showUploadSheet: Bool = false
-
+  
   private var bodyAnimation: Animation {
     Animation.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.1)
   }
@@ -64,7 +64,6 @@ struct HomePageView: View {
         }
 
         .edgesIgnoringSafeArea(.all)
-
       }
     
       if self.profile == nil {

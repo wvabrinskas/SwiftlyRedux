@@ -43,4 +43,8 @@ class Default: Theme {
   var cellColor: Color {
     .whiteSmoke
   }
+  
+  var commentsCellColor: Color {
+    .whiteSmoke
+  }
 }
