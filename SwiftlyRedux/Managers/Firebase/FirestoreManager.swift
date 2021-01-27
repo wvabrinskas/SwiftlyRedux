@@ -15,6 +15,7 @@ enum Reference: Equatable {
   case users(id: String = "")
   case media(id: String = "")
   case feed(id: String = "")
+  case comments(id: String = "")
 
   func ref(db: Firestore) -> DocumentReference {
     switch self {
@@ -24,6 +25,8 @@ enum Reference: Equatable {
       return db.collection("media").document(id)
     case let .feed(id):
       return db.collection("feeds").document(id)
+    case let .comments(id: id):
+      return db.collection("comments").document(id)
     }
   }
 }

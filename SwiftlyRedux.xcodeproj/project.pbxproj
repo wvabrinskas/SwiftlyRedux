@@ -54,6 +54,8 @@
 		914BE6DB25BC89C60018C9B1 /* CloseableTextFieldViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914BE6DA25BC89C60018C9B1 /* CloseableTextFieldViewModel.swift */; };
 		914BE6E025BC89CF0018C9B1 /* ClosableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914BE6DF25BC89CF0018C9B1 /* ClosableTextField.swift */; };
 		914BE6E625BC8A9C0018C9B1 /* Color+ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914BE6E525BC8A9C0018C9B1 /* Color+ext.swift */; };
+		91C3523125C1E7D900248160 /* CommentsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3523025C1E7D900248160 /* CommentsModule.swift */; };
+		91C3523625C1E7EE00248160 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91C3523525C1E7EE00248160 /* Comment.swift */; };
 		91F1ED0825BC9049005140FA /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED0725BC9049005140FA /* HeaderView.swift */; };
 		91F1ED0D25BC907E005140FA /* HeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED0C25BC907E005140FA /* HeaderViewModel.swift */; };
 		91F1ED1225BC9740005140FA /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F1ED1125BC9740005140FA /* RegisterView.swift */; };
@@ -138,6 +140,8 @@
 		914BE6DA25BC89C60018C9B1 /* CloseableTextFieldViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloseableTextFieldViewModel.swift; sourceTree = "<group>"; };
 		914BE6DF25BC89CF0018C9B1 /* ClosableTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClosableTextField.swift; sourceTree = "<group>"; };
 		914BE6E525BC8A9C0018C9B1 /* Color+ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+ext.swift"; sourceTree = "<group>"; };
+		91C3523025C1E7D900248160 /* CommentsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsModule.swift; sourceTree = "<group>"; };
+		91C3523525C1E7EE00248160 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		91F1ED0725BC9049005140FA /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		91F1ED0C25BC907E005140FA /* HeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderViewModel.swift; sourceTree = "<group>"; };
 		91F1ED1125BC9740005140FA /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 				912A0FB425BBD21F005D15FF /* SessionModule.swift */,
 				912A0FAF25BBD21F005D15FF /* MediaModule.swift */,
 				9125123325BF9A9B001E071A /* FeedModule.swift */,
+				91C3523025C1E7D900248160 /* CommentsModule.swift */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -299,6 +304,7 @@
 				912A0FE125BBD3B0005D15FF /* RealtimeSession.swift */,
 				914BE69225BC77510018C9B1 /* Media.swift */,
 				914BE6C025BC7CAB0018C9B1 /* Feed.swift */,
+				91C3523525C1E7EE00248160 /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -637,6 +643,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9125120925BF74E0001E071A /* MediaCellViewModel.swift in Sources */,
+				91C3523625C1E7EE00248160 /* Comment.swift in Sources */,
 				9125121825BF7782001E071A /* PlayerViewModel.swift in Sources */,
 				912511FF25BF73D9001E071A /* FeedView.swift in Sources */,
 				9125122525BF8AA1001E071A /* TextView.swift in Sources */,
@@ -679,6 +686,7 @@
 				912A0FB725BBD21F005D15FF /* DataCoordinator.swift in Sources */,
 				914BE6C125BC7CAB0018C9B1 /* Feed.swift in Sources */,
 				91F1ED0D25BC907E005140FA /* HeaderViewModel.swift in Sources */,
+				91C3523125C1E7D900248160 /* CommentsModule.swift in Sources */,
 				912A0FEB25BBD3EA005D15FF /* LoginValidator.swift in Sources */,
 				912A0F9E25BBD1F9005D15FF /* FirebaseRealtimeManager.swift in Sources */,
 			);

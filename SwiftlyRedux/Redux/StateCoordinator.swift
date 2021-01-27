@@ -18,12 +18,14 @@ class StateCoordinator {
   private let media = MediaSubscription()
   private let session = SessionSubscription()
   private let feed = FeedSubscription()
+  private let comment = CommentSubscription()
 
   enum SubscriptionType {
     case auth
     case media
     case session
     case feed
+    case comment
   }
 
   public func object<TType>(type: SubscriptionType) -> TType? {
@@ -36,6 +38,8 @@ class StateCoordinator {
       return self.media.obj()
     case .feed:
       return self.feed.obj()
+    case .comment:
+      return self.comment.obj()
     }
   }
   
@@ -49,7 +53,20 @@ class StateCoordinator {
       return self.media.publisher()
     case .feed:
       return self.feed.publisher()
+    case .comment:
+      return self.comment.publisher()
     }
+  }
+}
+
+//MARK: Comments
+extension StateCoordinator {
+  public func addComment(comment: Comment, to media: Media, complete: FirebaseReturnBlock?) {
+    self.comment.module.addComment(comment: comment, to: media, complete: complete)
+  }
+  
+  public func removeComment(comment: Comment, from media: Media, complete: FirebaseReturnBlock?) {
+    self.comment.module.removeComment(comment: comment, from: media, complete: complete)
   }
 }
 
@@ -166,8 +183,8 @@ extension StateCoordinator {
     }
   }
   
-  public func deleteMedia(media: Media, from feed: Feed, complete: MediaModule.FirebaseReturnBlock?) {
-    self.media.module.deleteMedia(media: media, from: feed) { (result) in
+  public func deleteMedia(media: Media, complete: MediaModule.FirebaseReturnBlock?) {
+    self.media.module.deleteMedia(media: media) { (result) in
       switch result {
       case .success:
         self.feed.module.removeMedia(media: media, complete: complete)

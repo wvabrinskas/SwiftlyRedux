@@ -42,7 +42,7 @@ struct FeedView: View {
   private func deleteItem(at indexSet: IndexSet) {
     indexSet.forEach { (index) in
       let media = self.media[index]
-      self.state.deleteMedia(media: media, from: viewModel.feed) { (result) in
+      self.state.deleteMedia(media: media) { (result) in
         print(result)
       }
     }

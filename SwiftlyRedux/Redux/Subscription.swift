@@ -31,20 +31,25 @@ extension Subscription {
 
 struct AuthSubscription: Subscription {
   typealias TModule = AuthModule
-  var module: AuthModule = AuthModule()
+  var module: TModule = TModule()
 }
 
 struct MediaSubscription: Subscription {
   typealias TModule = MediaModule
-  var module: MediaModule = MediaModule()
+  var module: TModule = TModule()
 }
 
 struct SessionSubscription: Subscription {
   typealias TModule = SessionModule
-  var module: SessionModule = SessionModule()
+  var module: TModule = TModule()
 }
 
 struct FeedSubscription: Subscription {
   typealias TModule = FeedModule
-  var module: FeedModule = FeedModule()
+  var module: TModule = TModule()
+}
+
+struct CommentSubscription: Subscription {
+  typealias TModule = CommentsModule
+  var module: TModule = TModule()
 }

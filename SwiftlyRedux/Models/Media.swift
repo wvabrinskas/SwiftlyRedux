@@ -11,12 +11,13 @@ public enum MediaType: String, Codable {
   case video, photo
 }
 
-public struct Media: Codable, Identifiable {
+public struct Media: Codable, Identifiable, Equatable {
   public var id: String = UUID().uuidString
   public var url: String
   public var type: MediaType = .photo
   public var uploadDate: Date = Date()
   public var description: String = ""
+  public var comments: [String] = []
   
   enum CodingKeys: String, CodingKey {
     case id
@@ -24,6 +25,7 @@ public struct Media: Codable, Identifiable {
     case type
     case uploadDate
     case description
+    case comments
   }
 
   public init(from decoder: Decoder) throws {
@@ -33,17 +35,20 @@ public struct Media: Codable, Identifiable {
     type = try values.decodeIfPresent(MediaType.self, forKey: .type) ?? .photo
     uploadDate = try values.decodeIfPresent(Date.self, forKey: .uploadDate) ?? Date()
     description = try values.decodeIfPresent(String.self, forKey: .description) ?? ""
+    comments = try values.decodeIfPresent([String].self, forKey: .comments) ?? []
   }
   
   public init(id: String = UUID().uuidString,
               url: String,
               type: MediaType,
               uploadDate: Date = Date(),
-              description: String = "") {
+              description: String = "",
+              comments: [String] = []) {
     self.id = id
     self.url = url
     self.type = type
     self.uploadDate = uploadDate
     self.description = description
+    self.comments = comments
   }
 }

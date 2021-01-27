@@ -64,9 +64,27 @@ class MediaModule: Module, FirestoreManager, FireStorageManager {
     
     self.getDoc(ref: .media(id: id), complete: complete)
   }
+//
+//  public func removeComment(commentId: String, from media: Media, complete: FirebaseReturnBlock?) {
+//    let updatedComments = media.comments.filter({ $0 != commentId })
+//
+//    let updates: [String: Any] = ["comments" : updatedComments]
+//
+//    //remove comment from media
+//    self.updateDoc(ref: .media(id: media.id), value: updates) { [weak self] (updateResult) in
+//      switch updateResult {
+//      case .success:
+//
+//        //self?.object = updatedComments.sorted(by: { $0.postedDate > $1.postedDate })
+//        complete?(.success(true))
+//      case let .failure(error):
+//        complete?(.failure(error))
+//      }
+//    }
+//  }
   
-  public func deleteMedia(media: Media, from feed: Feed, complete: FirebaseReturnBlock?) {
-    guard let obj = self.object, obj.contains(where: { $0.id == media.id }) else {
+  public func deleteMedia(media: Media, complete: FirebaseReturnBlock?) {
+    guard let obj = self.object, obj.contains(media) else {
       complete?(.failure(MediaError.nonExist))
       return
     }
@@ -132,7 +150,7 @@ class MediaModule: Module, FirestoreManager, FireStorageManager {
   }
 }
 
-//MARK: Video playback state
+//MARK: Youtube Video playback state
 extension MediaModule: YouTubePlayerDelegate {
   
   public func getVideoId(from videoUrl: String) -> String? {

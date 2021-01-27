@@ -19,12 +19,28 @@ struct MediaCell: View {
       mediaVisualView()
         .shadow(color: Color(.sRGB, white: 0.0, opacity: 0.4), radius: 5, x: 0, y: 10)
       
+      HStack {
+        Image(systemName: "bubble.left")
+          .resizable()
+          .frame(width: 15, height: 15, alignment: .center)
+          .aspectRatio(contentMode: .fit)
+          .foregroundColor(theme.darkTextColor)
+        
+        Text("\(self.viewModel.media.comments.count)")
+          .font(Font.system(size: 12))
+          .fontWeight(.bold)
+          .foregroundColor(theme.darkTextColor)
+      }
+      .padding(.top, 16)
+      .padding(.leading, 16)
+      .frame(maxWidth: .infinity, alignment: .leading)
+      
       Text(self.viewModel.media.description)
         .font(Font.system(size: 15))
         .fontWeight(.bold)
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding([.trailing, .leading], 16)
-        .padding([.top], 8)
+        .padding(.top, 8)
         .padding(.bottom, 16)
         .foregroundColor(theme.darkTextColor)
       
