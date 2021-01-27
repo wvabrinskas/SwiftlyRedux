@@ -16,6 +16,17 @@ class MediaModule: Module, FirestoreManager, FireStorageManager {
   @Published var object: ObjectType? = []
   
   var objectPublisher: Published<ObjectType?>.Publisher { $object }
+  
+  enum MediaError: Error {
+    case nonExist
+    
+    var localizedDescription: String {
+      switch self {
+      case .nonExist:
+        return "Media does not exist"
+      }
+    }
+  }
 
   //no need to bubble up result since this is managed by the publisher
   //alternatively we COULD make an optional return block
@@ -54,6 +65,24 @@ class MediaModule: Module, FirestoreManager, FireStorageManager {
     self.getDoc(ref: .media(id: id), complete: complete)
   }
   
+  public func deleteMedia(media: Media, from feed: Feed, complete: FirebaseReturnBlock?) {
+    guard let obj = self.object, obj.contains(where: { $0.id == media.id }) else {
+      complete?(.failure(MediaError.nonExist))
+      return
+    }
+    
+    self.removeDoc(ref: .media(id: media.id)) { (result) in
+      switch result {
+      case .success:
+        let updatedMedia = obj.filter({ $0.id != media.id })
+        self.object = updatedMedia
+        complete?(.success(true))
+      case let .failure(error):
+        complete?(.failure(error))
+      }
+    }
+  }
+  
   //we want to bubble up this result block for user interaction
   public func addMedia(media: Media, to feed: Feed, complete: FirebaseReturnBlock?) {
     //upload media to media document
@@ -73,7 +102,7 @@ class MediaModule: Module, FirestoreManager, FireStorageManager {
             
             var oldMediaObjects = self?.object
             oldMediaObjects?.append(media)
-            self?.object = oldMediaObjects
+            self?.object = oldMediaObjects?.sorted(by: { $0.uploadDate > $1.uploadDate })
             complete?(.success(true))
 
           case .failure:
@@ -83,6 +112,11 @@ class MediaModule: Module, FirestoreManager, FireStorageManager {
             self?.setDoc(ref: .feed(id: feed.id), value: newFeed) { (updateResult) in
               switch result {
               case .success:
+                
+                var oldMediaObjects = self?.object
+                oldMediaObjects?.append(media)
+                self?.object = oldMediaObjects?.sorted(by: { $0.uploadDate > $1.uploadDate })
+                
                 complete?(.success(true))
               case let .failure(error):
                 complete?(.failure(error))

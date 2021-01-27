@@ -10,6 +10,24 @@ import Foundation
 import Firebase
 import FirebaseStorage
 
+enum VideoLocation {
+  case feed(id: String)
+  
+  var name: String {
+    switch self {
+    case .feed:
+      return "\(UUID().uuidString)"
+    }
+  }
+  
+  var location: String {
+    switch self {
+    case let .feed(id):
+      return "videos/feed/\(id)/\(self.name).mov"
+    }
+  }
+}
+
 enum PhotoLocation {
   case profile(id: String)
   case feed(id: String)
@@ -105,6 +123,46 @@ extension FireStorageManager {
   
   func convert(_ image: UIImage) -> Data? {
     return image.jpegData(compressionQuality: 0.8)
+  }
+  
+  func uploadVideo(_ location: VideoLocation, url: URL?, complete: @escaping FirebaseImageBlock) {
+    guard let url = url else {
+      complete(.failure(UploadError.uploadEmpty))
+      return
+    }
+    
+    do {
+      let data = try Data(contentsOf: url)
+      
+      //video larger than 2GB
+      guard data.count < Int(2e+9) else {
+        complete(.failure(UploadError.imageTooLarge))
+        return
+      }
+      
+      let videoRef = storage.child(location.location)
+
+      let uploadTask = videoRef.putData(data, metadata: nil) { (metaData, error) in
+        guard error == nil, let _ = metaData else {
+          complete(.failure(error ?? UploadError.uploadErrorGeneric))
+          return
+        }
+        
+        videoRef.downloadURL { (url, error) in
+          guard error == nil, let dUrl = url else {
+            complete(.failure(error ?? UploadError.downloadErrorGeneric))
+            return
+          }
+          
+          complete(.success(dUrl))
+        }
+      }
+      uploadTask.enqueue()
+
+    } catch {
+      complete(.failure(error))
+    }
+    
   }
   
   func upload(_ location: PhotoLocation, image: UIImage?, complete: @escaping FirebaseImageBlock) {

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 import SDWebImageSwiftUI
 
 struct MediaCell: View {
@@ -33,10 +34,10 @@ struct MediaCell: View {
   }
   
   func mediaVisualView() -> AnyView {
-    
+    let url = self.viewModel.media.url
+
     switch viewModel.media.type {
     case .photo:
-      let url = self.viewModel.media.url
       
       return
         AnyView(
@@ -50,10 +51,14 @@ struct MediaCell: View {
         .cornerRadius(25))
       
     case .video:
+      guard let videoUrl = URL(string: url) else {
+        return AnyView(theme.background)
+      }
       return
-        AnyView(PlayerView(viewModel: PlayerViewModel(videoId: getMediaId(),
-                                            play: false))
-                  .aspectRatio(16/9, contentMode: .fit))
+        AnyView(VideoPlayer(player: AVPlayer(url: videoUrl))
+                  .aspectRatio(16/9, contentMode: .fit)
+                  .cornerRadius(25))
+
     }
   }
   

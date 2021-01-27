@@ -152,4 +152,28 @@ extension StateCoordinator {
       }
     }
   }
+  
+  
+  public func uploadMediaVideo(feedId: String, url: URL?, complete: @escaping (_ url: URL?) -> ()) {
+    self.media.module.uploadVideo(.feed(id: feedId), url: url) { (result) in
+      switch result {
+      case let .success(url):
+      complete(url)
+      case let .failure(error):
+        complete(nil)
+        print(error)
+      }
+    }
+  }
+  
+  public func deleteMedia(media: Media, from feed: Feed, complete: MediaModule.FirebaseReturnBlock?) {
+    self.media.module.deleteMedia(media: media, from: feed) { (result) in
+      switch result {
+      case .success:
+        self.feed.module.removeMedia(media: media, complete: complete)
+      case let .failure(error):
+        complete?(.failure(error))
+      }
+    }
+  }
 }

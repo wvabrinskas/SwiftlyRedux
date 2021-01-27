@@ -34,5 +34,6 @@ struct SwiftlyReduxApp: App {
       
       HomePageView()
     }
+
   }
 }

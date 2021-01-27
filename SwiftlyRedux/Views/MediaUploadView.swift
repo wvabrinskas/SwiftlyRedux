@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVKit
 
 struct MediaUploadView: View {
   @Environment(\.state) var state
@@ -16,6 +17,7 @@ struct MediaUploadView: View {
   
   @State var showImagePicker: Bool = false
   @State var image: UIImage?
+  @State var videoUrl: URL?
   @State var imageTypeToShow: ImageType?
   @State var description: String = ""
   @State var uploading: Bool = false
@@ -30,10 +32,17 @@ struct MediaUploadView: View {
     VStack {
       HeaderView(viewModel: HeaderViewModel(title: "Upload media"))
         .padding(.top, 50)
+      
       if let image = self.image {
         
         Image(uiImage: image)
           .resizable()
+          .aspectRatio(16/9, contentMode: .fit)
+          .cornerRadius(25)
+          .padding()
+        
+      } else if let url = self.videoUrl {
+        VideoPlayer(player: AVPlayer(url: url))
           .aspectRatio(16/9, contentMode: .fit)
           .cornerRadius(25)
           .padding()
@@ -99,10 +108,25 @@ struct MediaUploadView: View {
   }
   
   private func upload() {
-    guard let image = image else {
-      return
+    if image != nil {
+      self.uploadImage()
+    } else if self.videoUrl != nil {
+      self.uploadVideo()
     }
+  }
+  
+  private func uploadVideo() {
+    self.uploading = true
     
+    self.state.uploadMediaVideo(feedId: self.viewModel.feed.id, url: self.videoUrl) { (url) in
+      guard let url = url else {
+        return
+      }
+      self.uploadMedia(type: .video, url: url)
+    }
+  }
+  
+  private func uploadImage() {
     self.uploading = true
     
     self.state.uploadMediaImage(feedId: self.viewModel.feed.id, image: image) { (url) in
@@ -110,16 +134,20 @@ struct MediaUploadView: View {
         return
       }
       
-      let media = Media(url: url.absoluteString, type: .photo, description: self.description)
-      self.state.uploadMedia(media: media, to: self.viewModel.feed) { (result) in
-        self.uploading = false
+      self.uploadMedia(type: .photo, url: url)
+    }
+  }
+  
+  private func uploadMedia(type: MediaType, url: URL) {
+    let media = Media(url: url.absoluteString, type: type, description: self.description)
+    self.state.uploadMedia(media: media, to: self.viewModel.feed) { (result) in
+      self.uploading = false
 
-        switch result {
-        case .success:
-          self.mode.wrappedValue.dismiss()
-        case let .failure(error):
-          print(error)
-        }
+      switch result {
+      case .success:
+        self.mode.wrappedValue.dismiss()
+      case let .failure(error):
+        print(error)
       }
     }
   }
@@ -151,6 +179,6 @@ struct MediaUploadView: View {
   }
   
   private func uploadPicView(source: UIImagePickerController.SourceType) -> ImagePicker {
-    ImagePicker(image: self.$image, pickerType: source)
+    ImagePicker(image: self.$image, url: self.$videoUrl, pickerType: source)
   }
 }

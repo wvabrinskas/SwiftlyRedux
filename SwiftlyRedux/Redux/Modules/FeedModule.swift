@@ -27,4 +27,21 @@ class FeedModule: Module, FirestoreManager, FireStorageManager {
     }
   }
   
+  func removeMedia(media: Media, complete: FirebaseReturnBlock?) {
+    guard let feed = self.object else {
+      return
+    }
+    let mediaStrings = feed.media.filter({ $0 != media.id })
+    
+    self.updateDoc(ref: .feed(id: feed.id), value: ["media" : mediaStrings]) { (result) in
+      switch result {
+      case .success:
+        complete?(.success(true))
+        self.object = Feed(id: feed.id, media: mediaStrings)
+      case let .failure(error):
+        complete?(.failure(error))
+      }
+    }
+  }
+  
 }

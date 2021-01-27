@@ -23,7 +23,8 @@ struct HomePageView: View {
   @State private var profile:  AuthModule.ObjectType?
   @State private var loading: Bool = true
   @State private var feed: Feed?
-  
+  @State private var showUploadSheet: Bool = false
+
   private var bodyAnimation: Animation {
     Animation.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0.1)
   }
@@ -106,12 +107,20 @@ struct HomePageView: View {
       case .profile:
         profileView()
       case .upload:
+        
         if let feed = self.feed {
           MediaUploadView(viewModel: MediaUploadViewModel(feed: feed))
         } else {
           EmptyView()
         }
       }
+    }
+    .actionSheet(isPresented: self.$showUploadSheet) {
+      SwiftUI.ActionSheet(title: Text("Upload"), message: Text(""),
+                  buttons: [
+                    .default(Text("Photo"), action: {  }),
+                    .default(Text("Video"), action: {  }),
+                    .destructive(Text("Close"))])
     }
     .animation(self.bodyAnimation)
     .background(theme.secondaryBackground).edgesIgnoringSafeArea(.all)

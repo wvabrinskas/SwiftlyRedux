@@ -22,6 +22,8 @@ struct ProfileView: View {
   @State var editing: Bool = false
   @State var profile: Profile?
   @State private var inputImage: UIImage?
+  @State private var inputVideoURL: URL? //not used here will work out how to remove
+  
   @State var activeSheet: ActiveSheet?
   @State var loadedImage: Bool = false
 
@@ -90,7 +92,9 @@ struct ProfileView: View {
     .sheet(item: self.$activeSheet) { sheet in
       switch sheet {
       case .imagePicker:
-        ImagePicker(image: self.$inputImage, pickerType: .photoLibrary) { image in
+        ImagePicker(image: self.$inputImage,
+                    url: self.$inputVideoURL,
+                    pickerType: .photoLibrary) { (image, url) in
           self.uploadPhoto(image)
         }
       }
