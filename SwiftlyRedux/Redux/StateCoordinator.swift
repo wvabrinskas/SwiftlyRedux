@@ -66,7 +66,7 @@ extension StateCoordinator {
       complete?(.failure(AuthModule.AuthError.notLoggedIn))
       return
     }
-    
+
     let comment = Comment(comment: comment,
                           poster: user.userId,
                           mediaRefId: media.id,

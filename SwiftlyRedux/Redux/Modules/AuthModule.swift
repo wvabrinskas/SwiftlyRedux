@@ -40,14 +40,6 @@ class AuthModule: Module, FirestoreManager {
     }
   }
   
-  public func hasCachedValidUser() -> Bool {
-    return Auth.auth().currentUser != nil && !self.signedInUserIsDefault(Auth.auth().currentUser)
-  }
-  
-  public func signInToAccessData(complete: @escaping FirebaseReturnBlock) {
-    let credentials = Credentials.default()
-    self.login(credentials: credentials, complete: complete)
-  }
   
   public init() {
     self.setProfile(Auth.auth().currentUser)
@@ -61,6 +53,16 @@ class AuthModule: Module, FirestoreManager {
     self.authHandle = authHandle
   }
   
+  
+  public func hasCachedValidUser() -> Bool {
+    return Auth.auth().currentUser != nil && !self.signedInUserIsDefault(Auth.auth().currentUser)
+  }
+  
+  public func signInToAccessData(complete: @escaping FirebaseReturnBlock) {
+    let credentials = Credentials.default()
+    self.login(credentials: credentials, complete: complete)
+  }
+
   //grabs a user profile. If we were to scale this we would need to move this to a lamba on Firebase
   //that returns the neccessary data we want, since we don't want the application to pull the entire user profile
   //Security risk!
