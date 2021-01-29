@@ -9,20 +9,6 @@
 import Foundation
 import Combine
 
-enum CoordinatorError: Error {
-   case invalidType
-   case empty
-   
-   var localizedDescription: String {
-     switch self {
-     case .invalidType:
-       return "invalid type, cannot convert"
-     case .empty:
-       return "empty object error"
-     }
-   }
- }
-
 protocol Module: ObservableObject {
   associatedtype ObjectType
   //Should be @Published in implementation, no way to do this yet in a protocol

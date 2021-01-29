@@ -12,6 +12,21 @@ import Combine
 //figure out how to remove this from here
 import YouTubePlayer
 
+enum CoordinatorError: Error {
+   case invalidType
+   case empty
+   
+   var localizedDescription: String {
+     switch self {
+     case .invalidType:
+       return "invalid type, cannot convert"
+     case .empty:
+       return "empty object error"
+     }
+   }
+ }
+
+
 //MARK: Base
 class StateCoordinator {
   private let auth = AuthSubscription()
@@ -19,7 +34,7 @@ class StateCoordinator {
   private let session = SessionSubscription()
   private let feed = FeedSubscription()
   private let comment = CommentSubscription()
-
+  
   enum SubscriptionType {
     case auth
     case media
@@ -73,7 +88,7 @@ extension StateCoordinator {
                           posterImage: user.profileImage,
                           posterUsername: user.username)
     
-    self.comment.module.addComment(comment: comment, to: media) { [weak self ] (result) in
+    self.comment.module.addComment(comment: comment, to: media) { [weak self] (result) in
       complete?(result)
       self?.getFeed(id: media.feedRefId)
     }
