@@ -2,7 +2,7 @@
 import Foundation
 import Combine
 
-open protocol Subscription {
+public protocol Subscription {
   associatedtype TModule: Module
   var module: TModule { get }
   
@@ -10,12 +10,12 @@ open protocol Subscription {
   func publisher<TType>() -> Published<TType?>.Publisher
 }
 
-open extension Subscription {
-  open func obj<TType>() -> TType? {
+public extension Subscription {
+  public func obj<TType>() -> TType? {
     return self.module.object as? TType
   }
   
-  open func publisher<TType>() -> Published<TType?>.Publisher {
+  public func publisher<TType>() -> Published<TType?>.Publisher {
     let randomObj: TType? = nil
     var pub = Published.init(initialValue: randomObj)
     let obj = self.module
