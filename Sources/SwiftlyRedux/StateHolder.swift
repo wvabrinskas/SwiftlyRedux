@@ -48,7 +48,7 @@ public extension StateHolder {
   // MARK: Private
   
   func getSubscription<TSub>(type: TSub.Type) -> TSub? where TSub : StateSubscription {
-    let sub = self.subscriptions.first(where: { $0 is TSub.Type }) as? TSub
+    let sub = self.subscriptions.first(where: { $0 is TSub }) as? TSub
     
     return sub
   }
