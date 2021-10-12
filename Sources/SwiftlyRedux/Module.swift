@@ -10,3 +10,4 @@ public protocol Module: ObservableObject {
   var object: ObjectType? { get set }
   var objectPublisher: Published<ObjectType?>.Publisher { get }
 }
+
