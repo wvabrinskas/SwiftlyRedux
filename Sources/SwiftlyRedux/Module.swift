@@ -4,7 +4,7 @@
 import Foundation
 import Combine
 
-public protocol Module: ObservableObject {
+public protocol Module: ObservableObject, Hashable {
   associatedtype ObjectType
   //Should be @Published in implementation, no way to do this yet in a protocol
   var object: ObjectType? { get set }
