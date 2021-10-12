@@ -12,6 +12,7 @@ public protocol StateHolder: AnyObject {
   
   func addSubscription<TSub: StateSubscription>(sub: TSub)
   func removeSubscription<TSub: StateSubscription>(sub: TSub)
+  
   func object<TType, TSub: StateSubscription>(type: TSub.Type) -> TType?
   func subscribe<TType, TSub: StateSubscription>(type: TSub.Type) -> Published<TType?>.Publisher
 }
@@ -45,6 +46,7 @@ public extension StateHolder {
   
   func getSubscription<TSub>(type: TSub.Type) -> TSub? where TSub : StateSubscription {
     let sub = self.subscriptions.first(where: { $0 is TSub.Type }) as? TSub
+    
     return sub
   }
   
