@@ -54,9 +54,7 @@ public extension StateHolder {
 
     return sub?.module.object as? TType
   }
-  
-  // MARK: Private
-  
+    
   func getSubscription<TSub>(type: TSub.Type) -> TSub? where TSub : StateSubscription {
     let key = "\(TSub.self)"
     let sub = self.subscriptions[key]?.subcription as? TSub
