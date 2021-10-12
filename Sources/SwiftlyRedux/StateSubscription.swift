@@ -5,12 +5,17 @@ import Combine
 public protocol StateSubscription: Hashable {
   associatedtype TModule: Module
   var module: TModule { get }
+  var id: UUID { get set }
   
   func obj<TType>() -> TType?
   func publisher<TType>() -> Published<TType?>.Publisher
 }
 
 public extension StateSubscription {
+  static func ==(lhs: Self, rhs: Self) -> Bool {
+    return lhs.id == rhs.id
+  }
+  
   func obj<TType>() -> TType? {
     return self.module.object as? TType
   }
