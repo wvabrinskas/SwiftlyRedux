@@ -7,8 +7,18 @@
 
 import Foundation
 
+
+
+public struct AnySubscription {
+  internal var subcription: Any
+  
+  internal init<T: StateSubscription>(_ sub: T) {
+    self.subcription = sub
+  }
+}
+
 public protocol StateHolder: AnyObject {
-  var subscriptions: [String: Any] { get set }
+  var subscriptions: [String: AnySubscription] { get set }
   
   func addSubscription<TSub: StateSubscription>(sub: TSub)
   func removeSubscription<TSub: StateSubscription>(sub: TSub)
@@ -21,7 +31,7 @@ public protocol StateHolder: AnyObject {
 public extension StateHolder {
   func addSubscription<TSub>(sub: TSub) where TSub: StateSubscription {
     let key = "\(TSub.self)"
-    self.subscriptions[key] = sub
+    self.subscriptions[key] = AnySubscription(sub)
   }
   
   func removeSubscription<TSub>(sub: TSub) where TSub: StateSubscription {
@@ -48,8 +58,8 @@ public extension StateHolder {
   // MARK: Private
   
   func getSubscription<TSub>(type: TSub.Type) -> TSub? where TSub : StateSubscription {
-    let sub = self.subscriptions.first(where: { $0 is TSub }) as? TSub
-    
+    let key = "\(TSub.self)"
+    let sub = self.subscriptions[key]?.subcription as? TSub
     return sub
   }
   
