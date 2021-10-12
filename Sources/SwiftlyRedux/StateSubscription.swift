@@ -2,7 +2,7 @@
 import Foundation
 import Combine
 
-public protocol StateSubscription: Hashable {
+public protocol StateSubscription {
   associatedtype TModule: Module
   var module: TModule { get }
   

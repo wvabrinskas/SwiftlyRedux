@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol StateHolder: AnyObject {
-  var subscriptions: Set<AnyHashable> { get set }
+  var subscriptions: [Any] { get set }
   
   func addSubscription<TSub: StateSubscription>(sub: TSub)
   func removeSubscription<TSub: StateSubscription>(sub: TSub)
@@ -19,11 +19,14 @@ public protocol StateHolder: AnyObject {
 
 public extension StateHolder {
   func addSubscription<TSub>(sub: TSub) where TSub: StateSubscription {
-    let _ = self.subscriptions.insert(sub)
+    let filtered = self.subscriptions.first(where: { $0 is TSub })
+    if filtered == nil {
+      self.subscriptions.append(sub)
+    }
   }
   
   func removeSubscription<TSub>(sub: TSub) where TSub: StateSubscription {
-    let _ = self.subscriptions.remove(sub)
+    self.subscriptions.removeAll(where: { $0 is TSub })
   }
   
   func subscribe<TType, TSub>(type: TSub.Type) -> Published<TType?>.Publisher where TSub : StateSubscription {
