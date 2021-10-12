@@ -26,7 +26,7 @@ public extension StateHolder {
   }
   
   func subscribe<TType, TSub>(type: TSub.Type) -> Published<TType?>.Publisher where TSub : StateSubscription {
-    let sub = self.subscriptions.first(where: { $0 is TSub.Type }) as? TSub
+    let sub = self.getSubscription(type: type)
     
     guard let pub = sub?.module.objectPublisher as? Published<TType?>.Publisher else {
       fatalError("No publisher available for type: \(type)")
@@ -35,8 +35,17 @@ public extension StateHolder {
     return pub
   }
   
-  func object<TType, TSub>(type: TSub) -> TType? where TSub : StateSubscription {
-    type.module.object as? TType
+  func object<TType, TSub>(type: TSub.Type) -> TType? where TSub : StateSubscription {
+    let sub = self.getSubscription(type: type)
+
+    return sub?.module.object as? TType
+  }
+  
+  // MARK: Private
+  
+  func getSubscription<TSub>(type: TSub.Type) -> TSub? where TSub : StateSubscription {
+    let sub = self.subscriptions.first(where: { $0 is TSub.Type }) as? TSub
+    return sub
   }
   
 }
