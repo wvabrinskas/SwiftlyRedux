@@ -8,6 +8,8 @@ public protocol StateSubscription {
   
   func obj<TType>() -> TType?
   func publisher<TType>() -> AnyPublisher<TType?, Error>?
+  func errorPublisher() -> Published<Error>.Publisher
+
 }
 
 public extension StateSubscription {
