@@ -36,7 +36,7 @@ public struct SubscriptionViewWithError<Content: View>: View {
     self.cancellable = cancellable
   }
   
-  private var body: some View {
+  public var body: some View {
     self.content
   }
   
