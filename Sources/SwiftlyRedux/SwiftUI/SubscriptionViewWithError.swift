@@ -9,12 +9,12 @@ import Foundation
 import SwiftUI
 import Combine
 
-struct SubscriptionViewWithError<Content: View>: View {
+public struct SubscriptionViewWithError<Content: View>: View {
   
-  var content: Content
-  var cancellable: AnyCancellable
+  private var content: Content
+  private var cancellable: AnyCancellable
   
-  init<TType, TError>(_ content: Content,
+  public init<TType, TError>(_ content: Content,
                       _ publisher: AnyPublisher<TType, TError>,
                       value: @escaping (_ value: TType) -> (),
                       error: @escaping (_ error: TError) -> ()) {
@@ -36,13 +36,13 @@ struct SubscriptionViewWithError<Content: View>: View {
     self.cancellable = cancellable
   }
   
-  var body: some View {
+  private var body: some View {
     self.content
   }
   
 }
 
-extension View {
+public extension View {
   func onRecieveWithError<TType, TError>(_ publisher: AnyPublisher<TType, TError>,
                                          value: @escaping (_ value: TType) -> (),
                                          error: @escaping (_ error: TError) -> ()) -> some View {
