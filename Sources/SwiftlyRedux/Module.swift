@@ -12,7 +12,7 @@ public protocol Module: ObservableObject {
   var objectPublisher: AnyPublisher<ObjectType?, Error> { get }
 }
 
-extension Module {
+public extension Module {
   var objectPublisher: AnyPublisher<ObjectType?, Error> {
     return objectSubject.eraseToAnyPublisher()
   }
