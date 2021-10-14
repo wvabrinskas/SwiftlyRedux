@@ -7,7 +7,7 @@ public protocol StateSubscription {
   var module: TModule { get }
   
   func obj<TType>() -> TType?
-  func publisher<TType>() -> AnyPublisher<TType?, Error>
+  func publisher<TType>() -> AnyPublisher<TType?, Error>?
 }
 
 public extension StateSubscription {
