@@ -7,7 +7,7 @@ public protocol StateSubscription {
   var module: TModule { get }
   
   func obj<TType>() -> TType?
-  func publisher<TType>() -> Published<TType?>.Publisher
+  func publisher<TType>() -> AnyPublisher<TType?, Error>
 }
 
 public extension StateSubscription {
@@ -15,10 +15,8 @@ public extension StateSubscription {
     return self.module.object as? TType
   }
   
-  func publisher<TType>() -> Published<TType?>.Publisher {
-    let randomObj: TType? = nil
-    var pub = Published.init(initialValue: randomObj)
+  func publisher<TType>() -> AnyPublisher<TType?, Error>? {
     let obj = self.module
-    return obj.objectPublisher as? Published<TType?>.Publisher ?? pub.projectedValue
+    return obj.objectPublisher as? AnyPublisher<TType?, Error>
   }
 }

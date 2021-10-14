@@ -6,7 +6,14 @@ import Combine
 
 public protocol Module: ObservableObject {
   associatedtype ObjectType
-  //Should be @Published in implementation, no way to do this yet in a protocol
+
   var object: ObjectType? { get set }
-  var objectPublisher: Published<ObjectType?>.Publisher { get }
+  var objectSubject: PassthroughSubject<ObjectType?, Error> { get }
+  var objectPublisher: AnyPublisher<ObjectType?, Error> { get }
+}
+
+extension Module {
+  var objectPublisher: AnyPublisher<ObjectType?, Error> {
+    return objectSubject.eraseToAnyPublisher()
+  }
 }

@@ -6,8 +6,7 @@
 //
 
 import Foundation
-
-
+import Combine
 
 public struct AnySubscription {
   internal var subcription: Any
@@ -25,7 +24,7 @@ public protocol StateHolder: AnyObject {
   func getSubscription<TSub: StateSubscription>(type: TSub.Type) -> TSub?
   
   func object<TType, TSub: StateSubscription>(type: TSub.Type) -> TType?
-  func subscribe<TType, TSub: StateSubscription>(type: TSub.Type) -> Published<TType?>.Publisher
+  func subscribe<TType, TSub: StateSubscription>(type: TSub.Type) -> AnyPublisher<TType?, Error>
 }
 
 public extension StateHolder {
@@ -39,10 +38,10 @@ public extension StateHolder {
     let _ = self.subscriptions.removeValue(forKey: key)
   }
   
-  func subscribe<TType, TSub>(type: TSub.Type) -> Published<TType?>.Publisher where TSub : StateSubscription {
+  func subscribe<TType, TSub>(type: TSub.Type) -> AnyPublisher<TType?, Error> where TSub : StateSubscription {
     let sub = self.getSubscription(type: type)
     
-    guard let pub = sub?.module.objectPublisher as? Published<TType?>.Publisher else {
+    guard let pub = sub?.module.objectPublisher as? AnyPublisher<TType?, Error> else {
       fatalError("No publisher available for type: \(type)")
     }
     
