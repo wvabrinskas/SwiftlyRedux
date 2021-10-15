@@ -17,16 +17,16 @@ public struct SubscriptionViewWithError<Content: View>: View {
   public init<TType, TError>(_ content: Content,
                       _ publisher: AnyPublisher<TType, TError>,
                       value: @escaping (_ value: TType) -> (),
-                      error: @escaping (_ error: TError) -> ()) {
+                      complete: @escaping (_ error: TError?) -> ()) {
     
     let cancellable = publisher
       .receive(on: DispatchQueue.main)
       .sink { subError in
         switch subError {
         case .failure(let newError):
-          error(newError)
+          complete(newError)
         case .finished:
-          print("")
+          complete(nil)
         }
       } receiveValue: { gotValue in
         value(gotValue)
@@ -45,8 +45,8 @@ public struct SubscriptionViewWithError<Content: View>: View {
 public extension View {
   func onRecieveWithError<TType, TError>(_ publisher: AnyPublisher<TType, TError>,
                                          value: @escaping (_ value: TType) -> (),
-                                         error: @escaping (_ error: TError) -> ()) -> some View {
+                                         complete: @escaping (_ error: TError?) -> ()) -> some View {
   
-    return SubscriptionViewWithError(self, publisher, value: value, error: error)
+    return SubscriptionViewWithError(self, publisher, value: value, complete: complete)
   }
 }
