@@ -31,6 +31,7 @@ public struct SubscriptionViewWithError<Content: View>: View {
       } receiveValue: { gotValue in
         value(gotValue)
       }
+      .cancel()
     
     self.content = content
     self.cancellable = cancellable
