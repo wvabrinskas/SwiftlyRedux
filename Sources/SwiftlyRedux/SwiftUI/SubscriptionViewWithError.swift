@@ -34,7 +34,6 @@ public struct SubscriptionViewWithError<Content: View>: View {
     
     self.content = content
     self.cancellable = cancellable
-    self.cancellable.cancel()
   }
   
   private func removeCancellable() {
