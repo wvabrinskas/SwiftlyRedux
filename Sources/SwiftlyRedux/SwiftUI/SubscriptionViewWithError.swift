@@ -31,10 +31,14 @@ public struct SubscriptionViewWithError<Content: View>: View {
       } receiveValue: { gotValue in
         value(gotValue)
       }
-      .cancel()
     
     self.content = content
     self.cancellable = cancellable
+    self.cancellable.cancel()
+  }
+  
+  private func removeCancellable() {
+    self.cancellable.cancel()
   }
   
   public var body: some View {
