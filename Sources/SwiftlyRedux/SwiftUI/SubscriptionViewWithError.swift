@@ -15,11 +15,13 @@ public struct SubscriptionViewWithError<Content: View>: View {
   private var cancellable: AnyCancellable
   
   public init<TType, TError>(_ content: Content,
-                      _ publisher: AnyPublisher<TType, TError>,
-                      value: @escaping (_ value: TType) -> (),
-                      complete: @escaping (_ error: TError?) -> ()) {
+                             _ publisher: AnyPublisher<TType, TError>,
+                             subscribeScheduler: Scheduler = DispatchQueue.main,
+                             value: @escaping (_ value: TType) -> (),
+                             complete: @escaping (_ error: TError?) -> ()) {
     
     let cancellable = publisher
+      .subscribe(on: subscribeScheduler)
       .receive(on: DispatchQueue.main)
       .sink { subError in
         switch subError {
@@ -50,7 +52,7 @@ public extension View {
   func onRecieveWithError<TType, TError>(_ publisher: AnyPublisher<TType, TError>,
                                          value: @escaping (_ value: TType) -> (),
                                          complete: @escaping (_ error: TError?) -> ()) -> some View {
-  
+    
     return SubscriptionViewWithError(self, publisher, value: value, complete: complete)
   }
 }
