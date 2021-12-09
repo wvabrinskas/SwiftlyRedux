@@ -16,12 +16,12 @@ public struct SubscriptionViewWithError<Content: View>: View {
   
   public init<TType, TError>(_ content: Content,
                              _ publisher: AnyPublisher<TType, TError>,
-                             subscribeScheduler: Scheduler = DispatchQueue.main,
+                             subscribeOn: Scheduler = DispatchQueue.main,
                              value: @escaping (_ value: TType) -> (),
                              complete: @escaping (_ error: TError?) -> ()) {
     
     let cancellable = publisher
-      .subscribe(on: subscribeScheduler)
+      .subscribe(on: subscribeOn)
       .receive(on: DispatchQueue.main)
       .sink { subError in
         switch subError {
