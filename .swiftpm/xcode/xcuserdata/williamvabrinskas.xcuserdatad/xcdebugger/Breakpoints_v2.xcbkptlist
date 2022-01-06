@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "F399483B-DF07-4ADB-A336-6EB264A5C0DC"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "47B0C38B-59D8-4294-8566-CD056CEF50A8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Sources/SwiftlyRedux/StateHolder.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "subscribe(type:id:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "47B0C38B-59D8-4294-8566-CD056CEF50A8 - c33c512015afc76a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftlyRedux.StateHolder.subscribe&lt;&#x3c4;_0_0, &#x3c4;_0_1, &#x3c4;_0_2 where &#x3c4;_1_0: SwiftlyRedux.StateSubscription, &#x3c4;_1_1: SwiftlyRedux.SubjectIdentifier&gt;(type: &#x3c4;_1_0.Type, id: &#x3c4;_1_1) -&gt; Combine.AnyPublisher&lt;&#x3c4;_1_2, Swift.Error&gt;"
+                  moduleName = "SwiftlyReduxTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamvabrinskas/Documents/xcode/SwiftlyRedux/Sources/SwiftlyRedux/StateHolder.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "640">
+               </Location>
+               <Location
+                  uuid = "47B0C38B-59D8-4294-8566-CD056CEF50A8 - d7fe252887da804f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SwiftlyRedux.StateHolder.subscribe&lt;&#x3c4;_0_0, &#x3c4;_0_1, &#x3c4;_0_2 where &#x3c4;_1_0: SwiftlyRedux.StateSubscription, &#x3c4;_1_1: SwiftlyRedux.SubjectIdentifier&gt;(type: &#x3c4;_1_0.Type, id: &#x3c4;_1_1) -&gt; Combine.AnyPublisher&lt;Swift.Optional&lt;&#x3c4;_1_2&gt;, Swift.Error&gt;"
+                  moduleName = "SwiftlyReduxTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/williamvabrinskas/Documents/xcode/SwiftlyRedux/Sources/SwiftlyRedux/StateHolder.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "50"
+                  endingLineNumber = "50"
+                  offsetFromSymbolStart = "640">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

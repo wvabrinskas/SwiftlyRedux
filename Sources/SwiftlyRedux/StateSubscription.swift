@@ -6,16 +6,17 @@ public protocol StateSubscription {
   associatedtype TModule: Module
   var module: TModule { get }
   
-  func obj(id: TModule.Sub.SubID) -> TModule.Sub.ObjectType?
-  func publisher(id: TModule.Sub.SubID) -> AnyPublisher<TModule.Sub.ObjectType, Error>
+  func obj<TID: SubjectIdentifier, TValue>(id: TID) -> TValue?
+  func publisher<TID: SubjectIdentifier, TValue>(id: TID) -> AnyPublisher<TValue?, Error>?
 }
 
 public extension StateSubscription {
-  func obj(id: TModule.Sub.SubID) -> TModule.Sub.ObjectType? {
-    return self.module.getSubject(id:id) as? Self.TModule.Sub.ObjectType
+  func obj<TID: SubjectIdentifier, TValue>(id: TID) -> TValue? {
+    let subject: Subject<TValue, TID>? = self.module.getSubject(id: id)
+    return subject?.object
   }
   
-  func publisher(id: TModule.Sub.SubID) -> AnyPublisher<TModule.Sub.ObjectType, Error>? {
+  func publisher<TID: SubjectIdentifier, TValue>(id: TID) -> AnyPublisher<TValue?, Error>? {
     let obj = self.module
     return obj.getSubject(id: id)?.objectPublisher
   }

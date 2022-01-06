@@ -24,15 +24,11 @@ public protocol StateHolder: AnyObject {
   func removeSubscription<TSub: StateSubscription>(sub: TSub)
   func getSubscription<TSub: StateSubscription>(type: TSub.Type) -> TSub?
   
-  func object<TSub: StateSubscription>(type: TSub.Type,
-                                       id: TSub.TModule.Sub.SubID) -> TSub.TModule.Sub.ObjectType?
+  func object<TSub: StateSubscription, TReturn, TSubID: SubjectIdentifier>(type: TSub.Type,
+                                                                           id: TSubID) -> TReturn?
   
-  func subscribe<TSub: StateSubscription>(type: TSub.Type,
-                                          id: TSub.TModule.Sub.SubID) -> AnyPublisher<TSub.TModule.Sub.ObjectType?, Error>
-  
-  func updateSubject<TSub: StateSubscription>(type: TSub.Type,
-                                              id: TSub.TModule.Sub.SubID,
-                                              value: TSub.TModule.Sub.ObjectType)
+  func subscribe<TSub: StateSubscription, TReturn, TSubID: SubjectIdentifier>(type: TSub.Type,
+                                                                              id: TSubID) -> AnyPublisher<TReturn?, Error>
 }
 
 public extension StateHolder {
@@ -46,34 +42,27 @@ public extension StateHolder {
     let _ = self.subscriptions.removeValue(forKey: key)
   }
   
-  func subscribe<TSub: StateSubscription>(type: TSub.Type,
-                                          id: TSub.TModule.Sub.SubID) -> AnyPublisher<TSub.TModule.Sub.ObjectType?, Error> {
-    let sub = self.getSubscription(type: type)
+  func subscribe<TSub: StateSubscription, TID: SubjectIdentifier, TValue>(type: TSub.Type,
+                                                                          id: TID) -> AnyPublisher<TValue?, Error> {
+    let stateSubscription = self.getSubscription(type: type)
+    let subject: Subject<TValue, TID>? = stateSubscription?.module.getSubject(id: id)
     
-    guard let pub = sub?.module.getSubject(id: id)?.objectPublisher as? AnyPublisher<TSub.TModule.Sub.ObjectType?, Error> else {
+    guard let pub = subject?.objectPublisher else {
       fatalError("No publisher available for type: \(type)")
     }
     
     return pub
   }
   
-  func object<TSub: StateSubscription>(type: TSub.Type, id: TSub.TModule.Sub.SubID) -> TSub.TModule.Sub.ObjectType? {
+  func object<TSub: StateSubscription, TReturn, TSubID: SubjectIdentifier>(type: TSub.Type,
+                                                                           id: TSubID) -> TReturn? {
     let sub = self.getSubscription(type: type)
     return sub?.obj(id: id)
   }
-    
+  
   func getSubscription<TSub>(type: TSub.Type) -> TSub? where TSub : StateSubscription {
     let key = "\(TSub.self)"
     let sub = self.subscriptions[key]?.subcription as? TSub
     return sub
-  }
-  
-  func updateSubject<TSub: StateSubscription>(type: TSub.Type,
-                                              id: TSub.TModule.Sub.SubID,
-                                              value: TSub.TModule.Sub.ObjectType) {
-    let stateSubscription = self.getSubscription(type: type)
-    let subject = stateSubscription?.module.getSubject(id: id)
-    subject?.object = value
-    subject?.objectSubject.send(value)
   }
 }
