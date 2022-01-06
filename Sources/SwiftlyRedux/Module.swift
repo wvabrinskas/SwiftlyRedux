@@ -4,7 +4,7 @@
 import Foundation
 import Combine
 
-public protocol Subject: Hashable {
+public protocol Subject: AnyObject, Hashable {
   associatedtype ObjectType
   associatedtype SubID: SubjectIdentifier
   
