@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+//for type erasure
 public struct AnySubscription {
   internal var subcription: Any
   
@@ -23,8 +24,8 @@ public protocol StateHolder: AnyObject {
   func removeSubscription<TSub: StateSubscription>(sub: TSub)
   func getSubscription<TSub: StateSubscription>(type: TSub.Type) -> TSub?
   
-  func object<TType, TSub: StateSubscription>(type: TSub.Type) -> TType?
-  func subscribe<TType, TSub: StateSubscription>(type: TSub.Type) -> AnyPublisher<TType?, Error>
+  func object<TSub: StateSubscription>(type: TSub.Type, id: TSub.TModule.Sub.SubID) -> TSub.TModule.Sub.ObjectType?
+  func subscribe<TSub: StateSubscription>(type: TSub.Type, id: TSub.TModule.Sub.SubID) -> AnyPublisher<TSub.TModule.Sub.ObjectType?, Error>
 }
 
 public extension StateHolder {
@@ -38,20 +39,19 @@ public extension StateHolder {
     let _ = self.subscriptions.removeValue(forKey: key)
   }
   
-  func subscribe<TType, TSub>(type: TSub.Type) -> AnyPublisher<TType?, Error> where TSub : StateSubscription {
+  func subscribe<TSub: StateSubscription>(type: TSub.Type, id: TSub.TModule.Sub.SubID) -> AnyPublisher<TSub.TModule.Sub.ObjectType?, Error> {
     let sub = self.getSubscription(type: type)
     
-    guard let pub = sub?.module.objectPublisher as? AnyPublisher<TType?, Error> else {
+    guard let pub = sub?.module.getSubject(id: id)?.objectPublisher as? AnyPublisher<TSub.TModule.Sub.ObjectType?, Error> else {
       fatalError("No publisher available for type: \(type)")
     }
     
     return pub
   }
   
-  func object<TType, TSub>(type: TSub.Type) -> TType? where TSub : StateSubscription {
+  func object<TSub: StateSubscription>(type: TSub.Type, id: TSub.TModule.Sub.SubID) -> TSub.TModule.Sub.ObjectType? {
     let sub = self.getSubscription(type: type)
-
-    return sub?.module.object as? TType
+    return sub?.obj(id: id)
   }
     
   func getSubscription<TSub>(type: TSub.Type) -> TSub? where TSub : StateSubscription {
