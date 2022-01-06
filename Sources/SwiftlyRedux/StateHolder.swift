@@ -24,8 +24,15 @@ public protocol StateHolder: AnyObject {
   func removeSubscription<TSub: StateSubscription>(sub: TSub)
   func getSubscription<TSub: StateSubscription>(type: TSub.Type) -> TSub?
   
-  func object<TSub: StateSubscription>(type: TSub.Type, id: TSub.TModule.Sub.SubID) -> TSub.TModule.Sub.ObjectType?
-  func subscribe<TSub: StateSubscription>(type: TSub.Type, id: TSub.TModule.Sub.SubID) -> AnyPublisher<TSub.TModule.Sub.ObjectType?, Error>
+  func object<TSub: StateSubscription>(type: TSub.Type,
+                                       id: TSub.TModule.Sub.SubID) -> TSub.TModule.Sub.ObjectType?
+  
+  func subscribe<TSub: StateSubscription>(type: TSub.Type,
+                                          id: TSub.TModule.Sub.SubID) -> AnyPublisher<TSub.TModule.Sub.ObjectType?, Error>
+  
+  func updateSubject<TSub: StateSubscription>(type: TSub.Type,
+                                              id: TSub.TModule.Sub.SubID,
+                                              value: TSub.TModule.Sub.ObjectType)
 }
 
 public extension StateHolder {
@@ -39,7 +46,8 @@ public extension StateHolder {
     let _ = self.subscriptions.removeValue(forKey: key)
   }
   
-  func subscribe<TSub: StateSubscription>(type: TSub.Type, id: TSub.TModule.Sub.SubID) -> AnyPublisher<TSub.TModule.Sub.ObjectType?, Error> {
+  func subscribe<TSub: StateSubscription>(type: TSub.Type,
+                                          id: TSub.TModule.Sub.SubID) -> AnyPublisher<TSub.TModule.Sub.ObjectType?, Error> {
     let sub = self.getSubscription(type: type)
     
     guard let pub = sub?.module.getSubject(id: id)?.objectPublisher as? AnyPublisher<TSub.TModule.Sub.ObjectType?, Error> else {
@@ -60,4 +68,12 @@ public extension StateHolder {
     return sub
   }
   
+  func updateSubject<TSub: StateSubscription>(type: TSub.Type,
+                                              id: TSub.TModule.Sub.SubID,
+                                              value: TSub.TModule.Sub.ObjectType) {
+    let stateSubscription = self.getSubscription(type: type)
+    let subject = stateSubscription?.module.getSubject(id: id)
+    subject?.object = value
+    subject?.objectSubject.send(value)
+  }
 }
