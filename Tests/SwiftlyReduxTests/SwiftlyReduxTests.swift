@@ -185,4 +185,11 @@ final class SwiftlyReduxTests: XCTestCase {
     XCTAssert(returnObject == TestConfig.expectedDifferentDataAddition)
     
   }
+  
+  func testInvalidDataType() {
+    let publisher: AnyPublisher<Int?, Error>? = self.state.subscribe(type: SwiftlySubscription.self,
+                                                                          id: SwiftlyModule.SubjectIdentifiers.differentDataType)
+    
+    XCTAssert(publisher == nil, "Publisher should be nil since there's no publisher with optional type Int")
+  }
 }

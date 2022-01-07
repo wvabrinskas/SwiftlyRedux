@@ -28,7 +28,7 @@ public protocol StateHolder: AnyObject {
                                                                            id: TSubID) -> TReturn?
   
   func subscribe<TSub: StateSubscription, TReturn, TSubID: SubjectIdentifier>(type: TSub.Type,
-                                                                              id: TSubID) -> AnyPublisher<TReturn?, Error>
+                                                                              id: TSubID) -> AnyPublisher<TReturn?, Error>?
 }
 
 public extension StateHolder {
@@ -43,13 +43,14 @@ public extension StateHolder {
   }
   
   func subscribe<TSub: StateSubscription, TID: SubjectIdentifier, TValue>(type: TSub.Type,
-                                                                          id: TID) -> AnyPublisher<TValue, Error> {
+                                                                          id: TID) -> AnyPublisher<TValue, Error>? {
     let stateSubscription = self.getSubscription(type: type)
     let subject: SubjectHolder<TValue, TID>? = stateSubscription?.module.getSubject(id: id)
     
     guard let pub = subject?.objectPublisher else {
       print("SwiftlyRedux Error: Could not get publisher as the value you provided for the publisher doesn't match the type for the provided subject id. It's possible that you're expecting a non-optional value but passing in an optional value type to the generic typed value parameter.")
-      fatalError("No publisher available for type: \(type) - \(TValue.self) subjects in state: \(stateSubscription?.module.subjects)")
+      print("No publisher available for type: \(type) - \(TValue.self) subjects in state: \(stateSubscription?.module.subjects)")
+      return nil
     }
     
     return pub
