@@ -45,6 +45,7 @@ public class SubjectHolder<ObjectType, SubID: SubjectIdentifier>: SubjectObserva
 
 public protocol SubjectIdentifier: RawRepresentable where RawValue: Equatable {
   var stringValue: String { get }
+  //TODO: figure out how to return type
 }
 
 public protocol Module: ObservableObject {
