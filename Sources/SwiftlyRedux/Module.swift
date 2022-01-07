@@ -51,14 +51,14 @@ public protocol SubjectIdentifier: RawRepresentable where RawValue: Equatable {
 public protocol Module: ObservableObject {
   var subjects: [String: AnySubjectHolder] { get set }
   
-  func addSubject<T, TID: SubjectIdentifier>(_ object: T, identifier: TID)
+  func addSubject<T, TID: SubjectIdentifier>(_ object: T?, identifier: TID)
   func removeSubject<TID: SubjectIdentifier>(_ id: TID)
   func updateSubject<TValue, TID: SubjectIdentifier>(value: TValue?, identifier: TID)
   func getSubject<T, TSubID: SubjectIdentifier>(id: TSubID) -> SubjectHolder<T, TSubID>?
 }
 
 public extension Module {
-  func addSubject<T, TID: SubjectIdentifier>(_ object: T, identifier: TID) {
+  func addSubject<T, TID: SubjectIdentifier>(_ object: T?, identifier: TID) {
     let subject = SubjectHolder(identifier: identifier, object: object)
     self.subjects[identifier.stringValue] = AnySubjectHolder(subject)
   }
