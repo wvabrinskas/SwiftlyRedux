@@ -22,7 +22,8 @@ final class SwiftlyReduxTests: XCTestCase {
   }
   
   func testSettingDataWithSubscription() {
-    let publisher: AnyPublisher<[String]?, Error>? = self.state.subscribe(type: SwiftlySubscription.self, id: SwiftlyModule.SubjectIdentifiers.data)
+    let publisher: AnyPublisher<[String], Error>? = self.state.subscribe(type: SwiftlySubscription.self, id: SwiftlyModule.SubjectIdentifiers.data)
+    
     let originalObject: [String]? = self.state.object(type: SwiftlySubscription.self, id: SwiftlyModule.SubjectIdentifiers.data)
 
     XCTAssert(originalObject == TestConfig.initialData)
@@ -56,7 +57,8 @@ final class SwiftlyReduxTests: XCTestCase {
   }
   
   func testGenricCompletionFromPublisherSuccess() {
-    let publisher: AnyPublisher<[String]?, Error>? = self.state.subscribe(type: SwiftlySubscription.self, id: SwiftlyModule.SubjectIdentifiers.data)
+    let publisher: AnyPublisher<[String], Error>? = self.state.subscribe(type: SwiftlySubscription.self,
+                                                                          id: SwiftlyModule.SubjectIdentifiers.data)
     
     let originalObject: [String]? = self.state.object(type: SwiftlySubscription.self, id: SwiftlyModule.SubjectIdentifiers.data)
 
@@ -86,6 +88,49 @@ final class SwiftlyReduxTests: XCTestCase {
     wait(for: [expectation], timeout: TestConfig.expectationTimeout)
 
     XCTAssert(success == true)
+  }
+  
+  func testWithNullSubjectObject() {
+    let publisher: AnyPublisher<[String]?, Error>? = self.state.subscribe(type: SwiftlySubscription.self,
+                                                                          id: SwiftlyModule.SubjectIdentifiers.nullData)
+    XCTAssert(publisher != nil)
+  }
+  
+  func testWithNullSubjectUpdatesData() {
+    let publisher: AnyPublisher<[String]?, Error>? = self.state.subscribe(type: SwiftlySubscription.self,
+                                                                          id: SwiftlyModule.SubjectIdentifiers.nullData)
+    
+    let originalObject: [String]? = self.state.object(type: SwiftlySubscription.self,
+                                                      id: SwiftlyModule.SubjectIdentifiers.nullData)
+
+    XCTAssert(originalObject == TestConfig.nullInitialData)
+    
+    let expectation = XCTestExpectation()
+    
+    var returnObject: [String]?
+    var returnError: Error?
+    
+    publisher?
+      .sink(receiveCompletion: { error in
+        switch error {
+        case .failure(let error):
+          returnError = error
+        case .finished:
+          break
+        }
+        expectation.fulfill()
+      }, receiveValue: { newObject in
+        expectation.fulfill()
+        returnObject = newObject
+      })
+      .store(in: &self.set)
+    
+    state.addToNullData()
+    
+    wait(for: [expectation], timeout: TestConfig.expectationTimeout)
+    
+    XCTAssertNotNil(returnObject, "Object was never set meaning there was an error: \(returnError?.localizedDescription ?? "")")
+    XCTAssert(returnObject == TestConfig.expectedNullDataAddition)
   }
   
 }

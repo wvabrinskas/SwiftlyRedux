@@ -43,12 +43,12 @@ public extension StateHolder {
   }
   
   func subscribe<TSub: StateSubscription, TID: SubjectIdentifier, TValue>(type: TSub.Type,
-                                                                          id: TID) -> AnyPublisher<TValue?, Error> {
+                                                                          id: TID) -> AnyPublisher<TValue, Error> {
     let stateSubscription = self.getSubscription(type: type)
     let subject: SubjectHolder<TValue, TID>? = stateSubscription?.module.getSubject(id: id)
     
     guard let pub = subject?.objectPublisher else {
-      fatalError("No publisher available for type: \(type)")
+      fatalError("No publisher available for type: \(type) - \(TValue.self) subjects in state: \(stateSubscription?.module.subjects)")
     }
     
     return pub
