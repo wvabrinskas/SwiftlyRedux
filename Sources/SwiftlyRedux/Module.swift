@@ -5,15 +5,18 @@ import Foundation
 import Combine
 
 
-public struct AnySubject {
+public struct AnySubjectHolder {
   internal var subject: Any
+  //internal var genericPassthrough: PassthroughSubject<Any?, Error>
+  internal var genericPublisher: AnyPublisher<Any?, Error>
   
-  internal init<T: SomeSubject>(_ sub: T) {
+  internal init<T: SubjectObservable>(_ sub: T) {
     self.subject = sub
+    self.genericPublisher = sub.objectPublisher.map({ $0 as Any }).eraseToAnyPublisher()
   }
 }
 
-public protocol SomeSubject: AnyObject {
+public protocol SubjectObservable: AnyObject {
   associatedtype ObjectType
   associatedtype SubID: SubjectIdentifier
   
@@ -24,7 +27,7 @@ public protocol SomeSubject: AnyObject {
   var objectPublisher: AnyPublisher<ObjectType?, Error> { get }
 }
 
-public class Subject<ObjectType, SubID: SubjectIdentifier>: SomeSubject {
+public class SubjectHolder<ObjectType, SubID: SubjectIdentifier>: SubjectObservable {
   
   public var identifier: SubID
   public var object: ObjectType?
@@ -45,33 +48,33 @@ public protocol SubjectIdentifier: RawRepresentable where RawValue: Equatable {
 }
 
 public protocol Module: ObservableObject {
-  var subjects: [String: AnySubject] { get set }
+  var subjects: [String: AnySubjectHolder] { get set }
   
   func addSubject<T, TID: SubjectIdentifier>(_ object: T, identifier: TID)
   func removeSubject<TID: SubjectIdentifier>(_ id: TID)
   func updateSubject<TValue, TID: SubjectIdentifier>(value: TValue?, identifier: TID)
-  func getSubject<T, TSubID: SubjectIdentifier>(id: TSubID) -> Subject<T, TSubID>?
+  func getSubject<T, TSubID: SubjectIdentifier>(id: TSubID) -> SubjectHolder<T, TSubID>?
 }
 
 public extension Module {
   func addSubject<T, TID: SubjectIdentifier>(_ object: T, identifier: TID) {
-    let subject = Subject(identifier: identifier, object: object)
-    self.subjects[identifier.stringValue] = AnySubject(subject)
+    let subject = SubjectHolder(identifier: identifier, object: object)
+    self.subjects[identifier.stringValue] = AnySubjectHolder(subject)
   }
   
   func removeSubject<TID: SubjectIdentifier>(_ id: TID) {
     self.subjects.removeValue(forKey: id.stringValue)
   }
   
-  func getSubject<T, TSubID: SubjectIdentifier>(id: TSubID) -> Subject<T, TSubID>? {
+  func getSubject<T, TSubID: SubjectIdentifier>(id: TSubID) -> SubjectHolder<T, TSubID>? {
     let sub = self.subjects[id.stringValue]
-    return sub?.subject as? Subject<T, TSubID>
+    return sub?.subject as? SubjectHolder<T, TSubID>
   }
   
   func updateSubject<TValue, TID: SubjectIdentifier>(value: TValue?, identifier: TID) {
     let sub = self.subjects[identifier.stringValue]
     
-    if let castSub = sub?.subject as? Subject<TValue, TID> {
+    if let castSub = sub?.subject as? SubjectHolder<TValue, TID> {
       castSub.object = value
       
       if let value = value {

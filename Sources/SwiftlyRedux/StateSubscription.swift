@@ -12,7 +12,7 @@ public protocol StateSubscription {
 
 public extension StateSubscription {
   func obj<TID: SubjectIdentifier, TValue>(id: TID) -> TValue? {
-    let subject: Subject<TValue, TID>? = self.module.getSubject(id: id)
+    let subject: SubjectHolder<TValue, TID>? = self.module.getSubject(id: id)
     return subject?.object
   }
   
