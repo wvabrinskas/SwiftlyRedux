@@ -133,4 +133,56 @@ final class SwiftlyReduxTests: XCTestCase {
     XCTAssert(returnObject == TestConfig.expectedNullDataAddition)
   }
   
+  func testDifferentDataType() {
+    let publisher: AnyPublisher<Int, Error>? = self.state.subscribe(type: SwiftlySubscription.self,
+                                                                          id: SwiftlyModule.SubjectIdentifiers.differentDataType)
+    
+    XCTAssert(publisher != nil)
+    
+    let originalObject: Int? = self.state.object(type: SwiftlySubscription.self,
+                                                      id: SwiftlyModule.SubjectIdentifiers.differentDataType)
+
+    XCTAssert(originalObject == TestConfig.initialDifferentDataType)
+    
+  }
+  
+  func testDifferentDataTypeWithAddition() {
+    let publisher: AnyPublisher<Int, Error>? = self.state.subscribe(type: SwiftlySubscription.self,
+                                                                          id: SwiftlyModule.SubjectIdentifiers.differentDataType)
+    
+    XCTAssert(publisher != nil)
+    
+    let originalObject: Int? = self.state.object(type: SwiftlySubscription.self,
+                                                      id: SwiftlyModule.SubjectIdentifiers.differentDataType)
+
+    XCTAssert(originalObject == TestConfig.initialDifferentDataType)
+    
+    let expectation = XCTestExpectation()
+    
+    var returnObject: Int?
+    var returnError: Error?
+    
+    publisher?
+      .sink(receiveCompletion: { error in
+        switch error {
+        case .failure(let error):
+          returnError = error
+        case .finished:
+          break
+        }
+        expectation.fulfill()
+      }, receiveValue: { newObject in
+        expectation.fulfill()
+        returnObject = newObject
+      })
+      .store(in: &self.set)
+    
+    state.addToDifferentDataType()
+    
+    wait(for: [expectation], timeout: TestConfig.expectationTimeout)
+    
+    XCTAssertNotNil(returnObject, "Object was never set meaning there was an error: \(returnError?.localizedDescription ?? "")")
+    XCTAssert(returnObject == TestConfig.expectedDifferentDataAddition)
+    
+  }
 }

@@ -13,7 +13,12 @@ struct TestConfig {
   static let initialWord = "init"
   static let wordAdding = "test"
   static let nullInitialData: [String]? = nil
-  static let differentDataType: Int = 10
+  static let initialDifferentDataType: Int = 10
+  static let intAdding: Int = 10
+  
+  static var expectedDifferentDataAddition: Int {
+    return initialDifferentDataType + intAdding
+  }
   
   static var initialData: [String] {
     return [Self.initialWord]
@@ -48,7 +53,7 @@ final class SwiftlyModule: Module {
   init() {
     self.addSubject(TestConfig.initialData, identifier: SubjectIdentifiers.data)
     self.addSubject(TestConfig.nullInitialData, identifier: SubjectIdentifiers.nullData)
-    self.addSubject(TestConfig.differentDataType, identifier: SubjectIdentifiers.differentDataType)
+    self.addSubject(TestConfig.initialDifferentDataType, identifier: SubjectIdentifiers.differentDataType)
   }
   
   func addData() {
@@ -62,6 +67,12 @@ final class SwiftlyModule: Module {
     newData = newData == nil ? [] : newData
     newData?.append(TestConfig.wordAdding)
     self.updateSubject(value: newData, identifier: SubjectIdentifiers.nullData)
+  }
+  
+  func addToDifferentDataType() {
+    var newData: Int = self.getSubject(id: SubjectIdentifiers.differentDataType)?.object ?? 0
+    newData += TestConfig.intAdding
+    self.updateSubject(value: newData, identifier: SubjectIdentifiers.differentDataType)
   }
   
   func sendSubscriptionCompletion(type: Subscribers.Completion<Error>,
@@ -97,11 +108,15 @@ struct SwiftlySubscription: StateSubscription, SwiftlySubscriptionDescription {
     self.module.sendSubscriptionCompletion(type: type, identifier: identifier)
   }
 
+  func addToDifferentDataType() {
+    self.module.addToDifferentDataType()
+  }
 }
 
 protocol SwiftlySubscriptionDescription {
   func addData()
   func addToNullData()
+  func addToDifferentDataType()
   func sendSubscriptionCompletion(type: Subscribers.Completion<Error>, identifier: SwiftlyModule.SubjectIdentifiers)
 }
 
@@ -122,5 +137,9 @@ final class SwiftlyStateHolder: StateHolder, SwiftlySubscriptionDescription {
   
   func sendSubscriptionCompletion(type: Subscribers.Completion<Error>, identifier: SwiftlyModule.SubjectIdentifiers) {
     self.getSubscription(type: SwiftlySubscription.self)?.sendSubscriptionCompletion(type: type, identifier: identifier)
+  }
+  
+  func addToDifferentDataType() {
+    self.getSubscription(type: SwiftlySubscription.self)?.addToDifferentDataType()
   }
 }
