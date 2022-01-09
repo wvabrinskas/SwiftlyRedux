@@ -62,7 +62,7 @@ public extension StateHolder {
     
     guard let pub = subject?.objectPublisher else {
       print("SwiftlyRedux Fatal Error: Could not get publisher as the value you provided for the publisher doesn't match the type for the provided subject id. It's possible that you're expecting a non-optional value but passing in an optional value type to the generic typed value parameter.")
-      print("SwiftlyRedux Fatal Error: publisher available for type: \(type) - \(TValue.self) subjects in state: \(stateSubscription?.module.subjects)")
+      print("SwiftlyRedux Fatal Error: publisher available for type: \(type) - \(TValue.self) subjects in state: \(String(describing: stateSubscription?.module.subjects))")
       return nil
     }
     
