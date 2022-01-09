@@ -2,11 +2,19 @@
 import Foundation
 import Combine
 
+/// A proxy object that manages the connection between the `StateHolder` and a given `Module`
 public protocol StateSubscription {
   associatedtype TModule: Module
+  
+  /// `Module` that this subscription is providing to the state
   var module: TModule { get }
   
+  /// Object from the `SubjectObservable` given by the `SubjectIdentifier`
+  /// - Returns: The object of type `TValue`
   func obj<TID: SubjectIdentifier, TValue>(id: TID) -> TValue?
+  
+  /// Publisher of type `AnyPublisher` from the `SubjectObservable` given by the `SubjectIdentifier`
+  /// - Returns: The publisher of type `AnyPublisher<TValue, Error>?`
   func publisher<TID: SubjectIdentifier, TValue>(id: TID) -> AnyPublisher<TValue?, Error>?
 }
 

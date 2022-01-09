@@ -91,6 +91,13 @@ final class SwiftlyModule: Module {
   }
 }
 
+protocol SwiftlySubscriptionDescription {
+  func addData()
+  func addToNullData()
+  func addToDifferentDataType()
+  func sendSubscriptionCompletion(type: Subscribers.Completion<Error>, identifier: SwiftlyModule.SubjectIdentifiers)
+}
+
 struct SwiftlySubscription: StateSubscription, SwiftlySubscriptionDescription {
 
   typealias TModule = SwiftlyModule
@@ -111,13 +118,6 @@ struct SwiftlySubscription: StateSubscription, SwiftlySubscriptionDescription {
   func addToDifferentDataType() {
     self.module.addToDifferentDataType()
   }
-}
-
-protocol SwiftlySubscriptionDescription {
-  func addData()
-  func addToNullData()
-  func addToDifferentDataType()
-  func sendSubscriptionCompletion(type: Subscribers.Completion<Error>, identifier: SwiftlyModule.SubjectIdentifiers)
 }
 
 final class SwiftlyStateHolder: StateHolder, SwiftlySubscriptionDescription {
