@@ -66,6 +66,7 @@ public protocol Module: ObservableObject {
   
   /// Adds a subject to this module that can be updated and observed
   func addSubject<T, TID: SubjectIdentifier>(_ object: T, identifier: TID)
+  
   /// Removes a subject from this module.
   func removeSubject<TID: SubjectIdentifier>(_ id: TID)
   
@@ -79,20 +80,25 @@ public protocol Module: ObservableObject {
 
 public extension Module {
   
+  /// Adds a subject to this module that can be updated and observed
   func addSubject<T, TID: SubjectIdentifier>(_ object: T, identifier: TID) {
     let subject = SubjectHolder(identifier: identifier, object: object)
     self.subjects[identifier.stringValue] = AnySubjectHolder(subject)
   }
   
+  /// Removes a subject from this module.
   func removeSubject<TID: SubjectIdentifier>(_ id: TID) {
     self.subjects.removeValue(forKey: id.stringValue)
   }
   
+  /// Gets the subject specified by the id parameter
+  /// - Returns: the `SubjectHolder` that maps to the id.
   func getSubject<T, TSubID: SubjectIdentifier>(id: TSubID) -> SubjectHolder<T, TSubID>? {
     let sub = self.subjects[id.stringValue]
     return sub?.subject as? SubjectHolder<T, TSubID>
   }
   
+  /// Posts an update to the specified subject given by the ID with the value provided.
   func updateSubject<TValue, TID: SubjectIdentifier>(value: TValue, identifier: TID) {
     let sub = self.subjects[identifier.stringValue]
     

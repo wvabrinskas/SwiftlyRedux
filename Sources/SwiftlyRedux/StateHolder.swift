@@ -45,16 +45,20 @@ public protocol StateHolder: AnyObject {
 }
 
 public extension StateHolder {
+  /// Adds a subscription to the state
   func addSubscription<TSub>(sub: TSub) where TSub: StateSubscription {
     let key = "\(TSub.self)"
     self.subscriptions[key] = AnySubscription(sub)
   }
   
+  /// Removes a subscription from the state
   func removeSubscription<TSub>(sub: TSub) where TSub: StateSubscription {
     let key = "\(TSub.self)"
     let _ = self.subscriptions.removeValue(forKey: key)
   }
-  
+
+  /// The `AnyPublisher` returning type `TReturn` from the `StateSubscrition`'s `Module` given by the provided `SubjectIdentifier`
+  /// - Returns: The `AnyPublisher` returning type `TReturn` held by the `SubjectObservable` given by the `SubjectIdentifier`
   func subscribe<TSub: StateSubscription, TID: SubjectIdentifier, TValue>(type: TSub.Type,
                                                                           id: TID) -> AnyPublisher<TValue, Error>? {
     let stateSubscription = self.getSubscription(type: type)
@@ -69,12 +73,16 @@ public extension StateHolder {
     return pub
   }
   
+  /// The object of type `TReturn` from the `StateSubscrition`'s `Module` given by the provided `SubjectIdentifier`
+  /// - Returns: The object of type `TReturn` held by the `SubjectObservable` given by the `SubjectIdentifier`
   func object<TSub: StateSubscription, TReturn, TSubID: SubjectIdentifier>(type: TSub.Type,
                                                                            id: TSubID) -> TReturn? {
     let sub = self.getSubscription(type: type)
     return sub?.obj(id: id)
   }
   
+  /// Get a subscription by that `StateSubscription`s type.
+  /// - Returns: the `StateDescription` of type provided.
   func getSubscription<TSub>(type: TSub.Type) -> TSub? where TSub : StateSubscription {
     let key = "\(TSub.self)"
     let sub = self.subscriptions[key]?.subcription as? TSub

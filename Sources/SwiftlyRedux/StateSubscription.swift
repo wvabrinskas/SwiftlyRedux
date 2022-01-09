@@ -19,11 +19,15 @@ public protocol StateSubscription {
 }
 
 public extension StateSubscription {
+  /// Object from the `SubjectObservable` given by the `SubjectIdentifier`
+  /// - Returns: The object of type `TValue`
   func obj<TID: SubjectIdentifier, TValue>(id: TID) -> TValue? {
     let subject: SubjectHolder<TValue, TID>? = self.module.getSubject(id: id)
     return subject?.object
   }
   
+  /// Publisher of type `AnyPublisher` from the `SubjectObservable` given by the `SubjectIdentifier`
+  /// - Returns: The publisher of type `AnyPublisher<TValue, Error>?`
   func publisher<TID: SubjectIdentifier, TValue>(id: TID) -> AnyPublisher<TValue?, Error>? {
     let obj = self.module
     return obj.getSubject(id: id)?.objectPublisher
