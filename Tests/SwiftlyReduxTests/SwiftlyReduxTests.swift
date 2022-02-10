@@ -3,6 +3,18 @@ import Combine
 @testable import SwiftlyRedux
 
 
+extension AnyPublisher {
+  func recieveObject(store: inout Set<AnyCancellable>) async -> Output {
+    await withCheckedContinuation { continuation in
+      self.sink { _ in
+      } receiveValue: { out in
+        continuation.resume(with: .success(out))
+      }
+      .store(in: &store)
+    }
+  }
+}
+
 final class SwiftlyReduxTests: XCTestCase {
   let state = SwiftlyStateHolder()
   var set: Set<AnyCancellable> = []
@@ -90,6 +102,17 @@ final class SwiftlyReduxTests: XCTestCase {
     XCTAssert(success == true)
   }
   
+  func testExtensions() async {
+    let publisher: AnyPublisher<Int, Error>? = self.state.subscribe(type: SwiftlySubscription.self,
+                                                                          id: SwiftlyModule.SubjectIdentifiers.differentDataType)
+    XCTAssert(publisher != nil)
+    
+    let obj = await publisher?.recieveObject(store: &self.set)
+    XCTAssert(obj != nil)
+  
+    state.addToDifferentDataType()
+  }
+
   func testWithNullSubjectObject() {
     let publisher: AnyPublisher<[String]?, Error>? = self.state.subscribe(type: SwiftlySubscription.self,
                                                                           id: SwiftlyModule.SubjectIdentifiers.nullData)
