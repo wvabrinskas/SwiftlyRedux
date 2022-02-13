@@ -16,7 +16,6 @@ public struct AnySubjectHolder {
   }
 }
 
-
 /// Protocol defining how a subject can be observed by the `StateHolder` object. Contains the publisher, the passthrough subject, as well as its unique identifier for look up by the `Module`
 public protocol SubjectObservable: AnyObject {
   associatedtype ObjectType

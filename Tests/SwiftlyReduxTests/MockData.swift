@@ -98,8 +98,9 @@ protocol SwiftlySubscriptionDescription {
   func sendSubscriptionCompletion(type: Subscribers.Completion<Error>, identifier: SwiftlyModule.SubjectIdentifiers)
 }
 
-struct SwiftlySubscription: StateSubscription, SwiftlySubscriptionDescription {
-
+class SwiftlySubscription: StateSubscription, SwiftlySubscriptionDescription {
+  var cancellables: Set<AnyCancellable> = []
+  
   typealias TModule = SwiftlyModule
   var module: SwiftlyModule = SwiftlyModule()
   

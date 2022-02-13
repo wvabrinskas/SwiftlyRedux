@@ -2,19 +2,6 @@ import XCTest
 import Combine
 @testable import SwiftlyRedux
 
-
-extension AnyPublisher {
-  func recieveObject(store: inout Set<AnyCancellable>) async -> Output {
-    await withCheckedContinuation { continuation in
-      self.sink { _ in
-      } receiveValue: { out in
-        continuation.resume(with: .success(out))
-      }
-      .store(in: &store)
-    }
-  }
-}
-
 final class SwiftlyReduxTests: XCTestCase {
   let state = SwiftlyStateHolder()
   var set: Set<AnyCancellable> = []
@@ -69,32 +56,24 @@ final class SwiftlyReduxTests: XCTestCase {
   }
   
   func testGenricCompletionFromPublisherSuccess() {
-    let publisher: AnyPublisher<[String], Error>? = self.state.subscribe(type: SwiftlySubscription.self,
-                                                                          id: SwiftlyModule.SubjectIdentifiers.data)
+    var success: Bool = false
+    let expectation = XCTestExpectation()
     
     let originalObject: [String]? = self.state.object(type: SwiftlySubscription.self, id: SwiftlyModule.SubjectIdentifiers.data)
 
     XCTAssert(originalObject == TestConfig.initialData)
+    
+    self.state.on(id: SwiftlyModule.SubjectIdentifiers.data,
+                  in: SwiftlySubscription.self) { error in
+      
+      XCTAssert(error == nil, error?.localizedDescription ?? "Some Error")
+      success = true
+      expectation.fulfill()
+    } recieve: { (value: [String]) in
+      success = true
+      expectation.fulfill()
+    }
 
-    let expectation = XCTestExpectation()
-    
-    var success: Bool = false
-    
-    publisher?
-      .sink(receiveCompletion: { error in
-        switch error {
-        case .failure:
-          break
-        case .finished:
-          success = true
-        }
-        expectation.fulfill()
-      }, receiveValue: { newObject in
-        expectation.fulfill()
-      })
-      .store(in: &self.set)
-    
-    
     state.sendSubscriptionCompletion(type: .finished, identifier: .data)
     
     wait(for: [expectation], timeout: TestConfig.expectationTimeout)
@@ -102,17 +81,6 @@ final class SwiftlyReduxTests: XCTestCase {
     XCTAssert(success == true)
   }
   
-  func testExtensions() async {
-    let publisher: AnyPublisher<Int, Error>? = self.state.subscribe(type: SwiftlySubscription.self,
-                                                                          id: SwiftlyModule.SubjectIdentifiers.differentDataType)
-    XCTAssert(publisher != nil)
-    
-    let obj = await publisher?.recieveObject(store: &self.set)
-    XCTAssert(obj != nil)
-  
-    state.addToDifferentDataType()
-  }
-
   func testWithNullSubjectObject() {
     let publisher: AnyPublisher<[String]?, Error>? = self.state.subscribe(type: SwiftlySubscription.self,
                                                                           id: SwiftlyModule.SubjectIdentifiers.nullData)

@@ -42,9 +42,25 @@ public protocol StateHolder: AnyObject {
   /// - Returns: The `AnyPublisher` returning type `TReturn` held by the `SubjectObservable` given by the `SubjectIdentifier`
   func subscribe<TSub: StateSubscription, TReturn, TSubID: SubjectIdentifier>(type: TSub.Type,
                                                                               id: TSubID) -> AnyPublisher<TReturn?, Error>?
+  
+  /// Wrapper for the publishers callbacks
+  func on<TSub: StateSubscription, TID: SubjectIdentifier, TValue>(id: TID,
+                                                                   in: TSub.Type,
+                                                                   complete: ((Error?) -> ())?,
+                                                                   recieve: ((TValue) -> ())?)
 }
 
 public extension StateHolder {
+  
+  func on<TSub: StateSubscription, TID: SubjectIdentifier, TValue>(id: TID,
+                                                                   in: TSub.Type,
+                                                                   complete: ((Error?) -> ())? = nil,
+                                                                   recieve: ((TValue) -> ())? = nil) {
+    if let stateSubscription = self.getSubscription(type: `in`) {
+      stateSubscription.on(id: id, complete: complete, recieve: recieve)
+    }
+  }
+  
   /// Adds a subscription to the state
   func addSubscription<TSub>(sub: TSub) where TSub: StateSubscription {
     let key = "\(TSub.self)"
